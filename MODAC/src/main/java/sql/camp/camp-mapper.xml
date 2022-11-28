@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+
+	<!-- 페이징 처리 -->
+	<entry key="selectListCount">
+		SELECT COUNT(*) COUNT
+		FROM CAMP_INFO
+	</entry>
+	
+	
+	
+	<!-- 지역검색 페이징 처리 -->
+	<entry key="locationListCount">
+		SELECT COUNT(*) COUNT
+		FROM( SELECT CI.CAMP_NAME,
+		            CI.LOCATION_1,
+		            CI.ADDRESS,
+		            LISTAGG(NA.NATURAL_ATTRI,',') WITHIN GROUP(ORDER BY TO_NUMBER(cn.natural_no)) AS NATURAL_ATTRI
+		         FROM CAMP_NATURAL CN
+		        JOIN CAMP_INFO CI ON(CN.CAMP_NO = CI.CAMP_NO)
+		        JOIN "NATURAL" NA ON(CN.NATURAL_NO = NA.NATURAL_NO)
+				GROUP BY CI.ADDRESS,CI.LOCATION_1,CI.LOCATION_2, CI.CAMP_NAME
+				HAVING CI.LOCATION_1 = ? AND CI.LOCATION_2 = ?
+				ORDER BY CI.CAMP_NAME
+		)
+	</entry>
+	
+	
+	
+	<!-- 테마 x 페이징 처리 -->
+	<entry key="noCheckBoxCount">
+		SELECT COUNT(*) COUNT    
+		FROM(SELECT CAMP_NAME,
+								LOCATION_1,
+						        ADDRESS,
+						        LISTAGG(NA.NATURAL_ATTRI,',') WITHIN GROUP(ORDER BY TO_NUMBER(cn.natural_no)) AS NATURAL_ATTRI
+						FROM(
+						        SELECT CAMP_NO,
+						                CI.CAMP_NAME,
+						                CI.LOCATION_1,
+										CI.ADDRESS
+								FROM CAMP_INFO CI
+								JOIN CAMP_NATURAL CN USING (CAMP_NO)
+								JOIN "NATURAL" NA ON (CN.NATURAL_NO = NA.NATURAL_NO)
+								WHERE NATURAL_ATTRI = ?
+						)
+						JOIN CAMP_NATURAL CN USING(CAMP_NO)
+						JOIN "NATURAL" NA ON (CN.NATURAL_NO = NA.NATURAL_NO)
+						GROUP BY CAMP_NAME, ADDRESS, LOCATION_1
+						ORDER BY CAMP_NAME)
+	</entry>
+	
+	
+	<!-- 펫 x 페이징 처리 -->
+	<entry key="noPetBoxCount">
+		SELECT COUNT(*) COUNT
+		FROM(SELECT CAMP_NAME,
+								LOCATION_1,
+						        ADDRESS,
+						        LISTAGG(NA.NATURAL_ATTRI,',') WITHIN GROUP(ORDER BY TO_NUMBER(cn.natural_no)) AS NATURAL_ATTRI
+						FROM(
+						        SELECT CAMP_NO,
+						                CI.CAMP_NAME,
+						                CI.LOCATION_1,
+										CI.ADDRESS
+								FROM CAMP_INFO CI
+								JOIN CAMP_NATURAL CN USING (CAMP_NO)
+								JOIN "NATURAL" NA ON (CN.NATURAL_NO = NA.NATURAL_NO)
+								WHERE NATURAL_ATTRI = ?
+						)
+						JOIN CAMP_NATURAL CN USING(CAMP_NO)
+						JOIN "NATURAL" NA ON (CN.NATURAL_NO = NA.NATURAL_NO)
+						GROUP BY CAMP_NAME, ADDRESS, LOCATION_1
+						ORDER BY CAMP_NAME)
+	</entry>
+	
+	
+	<!--  검색 체크 모두 이용시 -->
+	<entry key="boxCount">
+		SELECT COUNT(*) COUNT
+		FROM (SELECT CAMP_NAME,
+								LOCATION_1,
+						        ADDRESS,
+						        LISTAGG(NA.NATURAL_ATTRI,',') WITHIN GROUP(ORDER BY TO_NUMBER(cn.natural_no)) AS NATURAL_ATTRI
+				            FROM(
+						        SELECT CAMP_NO,
+						                CI.CAMP_NAME,
+						                CI.LOCATION_1,
+						                CI.ADDRESS
+								FROM CAMP_INFO CI
+								JOIN CAMP_NATURAL CN USING (CAMP_NO)
+								JOIN "NATURAL" NA ON (CN.NATURAL_NO = NA.NATURAL_NO)
+								WHERE NATURAL_ATTRI = ? OR NATURAL_ATTRI = ?
+						        GROUP BY CAMP_NO, CI.CAMP_NAME, CI.ADDRESS, CI.LOCATION_1
+						)
+						JOIN CAMP_NATURAL CN USING(CAMP_NO)
+						JOIN "NATURAL" NA ON (CN.NATURAL_NO = NA.NATURAL_NO)
+						GROUP BY CAMP_NAME, ADDRESS, LOCATION_1
+						ORDER BY CAMP_NAME)
+	</entry>
+	
+	
+	
+	<!-- 지역 + 펫 검색 -->
+	<entry key="locationPetCount">
+		SELECT COUNT(*) COUNT
+		FROM (SELECT CAMP_NAME,
+						        ADDRESS,
+						        LOCATION_1,
+						        LISTAGG(NA.NATURAL_ATTRI,',') WITHIN GROUP(ORDER BY TO_NUMBER(cn.natural_no)) AS NATURAL_ATTRI
+						FROM (SELECT CAMP_NO,
+				                    CI.CAMP_NAME,
+				                    CI.ADDRESS,
+				                    CI.LOCATION_1
+				              FROM CAMP_INFO CI
+				            JOIN CAMP_NATURAL CN USING(CAMP_NO)
+				            JOIN "NATURAL" NA ON (CN.NATURAL_NO=NA.NATURAL_NO)
+				            WHERE CI.LOCATION_1 = ? AND CI.LOCATION_2 = ?
+				            AND NATURAL_ATTRI = ?
+						)
+						JOIN CAMP_NATURAL CN USING(CAMP_NO)
+						JOIN "NATURAL" NA ON (CN.NATURAL_NO = NA.NATURAL_NO)
+						GROUP BY CAMP_NAME, ADDRESS, LOCATION_1
+						ORDER BY CAMP_NAME)
+	</entry>
+	
+	
+	
+	<!-- 모든 검색 기능 사용한 페이징 처리 -->
+	<entry key="cCount">
+		SELECT COUNT(*) COUNT                
+		FROM (SELECT CAMP_NAME,
+				                    LOCATION_1,
+				                ADDRESS,
+				                LISTAGG(NA.NATURAL_ATTRI,',') WITHIN GROUP(ORDER BY TO_NUMBER(cn.natural_no)) AS NATURAL_ATTRI
+				                FROM(
+				                    SELECT CAMP_NO,
+				                            CI.CAMP_NAME,
+				                            CI.LOCATION_1,
+				                            CI.ADDRESS
+				                    FROM CAMP_INFO CI
+				                    JOIN CAMP_NATURAL CN USING (CAMP_NO)
+				                    JOIN "NATURAL" NA ON (CN.NATURAL_NO = NA.NATURAL_NO)
+				                    WHERE CI.LOCATION_1 = ? AND CI.LOCATION_2 = ?
+				                    AND NATURAL_ATTRI = ? OR NATURAL_ATTRI = ?
+				                    GROUP BY CAMP_NO, CI.CAMP_NAME, CI.ADDRESS, CI.LOCATION_1
+				            )
+						JOIN CAMP_NATURAL CN USING(CAMP_NO)
+						JOIN "NATURAL" NA ON (CN.NATURAL_NO = NA.NATURAL_NO)
+						GROUP BY CAMP_NAME, ADDRESS, LOCATION_1
+						ORDER BY CAMP_NAME)
+	</entry>
+	
+	
+	
+	
+
+
+	<!-- 캠핑장 전체 조회 -->
+	<entry key="selectCampList">
+		SELECT *        
+		FROM (        
+		SELECT ROWNUM RNUM,
+		        C.*
+		FROM (SELECT CI.CAMP_NAME,
+				        CI.ADDRESS,
+				        CI.LOCATION_1,
+				        CI.LOCATION_2,
+				        LISTAGG(NA.NATURAL_ATTRI,',') WITHIN GROUP(ORDER BY TO_NUMBER(CN.NATURAL_NO)) AS NATURAL_ATTRI,
+				        CAMP_IMG
+				FROM CAMP_NATURAL CN
+				JOIN CAMP_INFO CI ON(CN.CAMP_NO = CI.CAMP_NO)
+				JOIN "NATURAL" NA ON(CN.NATURAL_NO = NA.NATURAL_NO)
+				GROUP BY CI.ADDRESS,CI.LOCATION_1,CI.LOCATION_2, CI.CAMP_NAME, CAMP_IMG
+				ORDER BY CI.CAMP_NAME
+		) C
+		)
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+
+
+	<!-- 지역 조회 -->
+	<entry key="locationSelect">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM,
+		            C.*
+		    FROM (SELECT CI.CAMP_NAME,
+						CI.LOCATION_1,
+						CI.ADDRESS,
+		        		LISTAGG(NA.NATURAL_ATTRI,',') WITHIN GROUP(ORDER BY TO_NUMBER(cn.natural_no)) AS NATURAL_ATTRI,
+		        		CAMP_IMG
+		        FROM CAMP_NATURAL CN
+		        JOIN CAMP_INFO CI ON(CN.CAMP_NO = CI.CAMP_NO)
+		        JOIN "NATURAL" NA ON(CN.NATURAL_NO = NA.NATURAL_NO)
+		        GROUP BY CI.ADDRESS,CI.LOCATION_1,CI.LOCATION_2, CI.CAMP_NAME, CAMP_IMG
+		        HAVING CI.LOCATION_1 = ? AND CI.LOCATION_2 = ?
+		        ORDER BY CI.CAMP_NAME) C )
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	
+	<!-- 지역+체크박스 조회 -->
+	<entry key="cSelect">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM,
+		        C.*
+		        FROM (SELECT CAMP_NAME,
+		                    LOCATION_1,
+		                ADDRESS,
+		                LISTAGG(NA.NATURAL_ATTRI,',') WITHIN GROUP(ORDER BY TO_NUMBER(cn.natural_no)) AS NATURAL_ATTRI,
+		                CAMP_IMG
+		                FROM(
+		                    SELECT CAMP_NO,
+		                            CI.CAMP_NAME,
+		                            CI.LOCATION_1,
+		                            CI.ADDRESS,
+		                            CI.CAMP_IMG
+		                    FROM CAMP_INFO CI
+		                    JOIN CAMP_NATURAL CN USING (CAMP_NO)
+		                    JOIN "NATURAL" NA ON (CN.NATURAL_NO = NA.NATURAL_NO)
+		                    WHERE CI.LOCATION_1 = ? AND CI.LOCATION_2 = ?
+		                    AND NATURAL_ATTRI = ? OR NATURAL_ATTRI = ?
+		                    GROUP BY CAMP_NO, CI.CAMP_NAME, CI.ADDRESS, CI.LOCATION_1, CI.CAMP_IMG
+		            )
+				JOIN CAMP_NATURAL CN USING(CAMP_NO)
+				JOIN "NATURAL" NA ON (CN.NATURAL_NO = NA.NATURAL_NO)
+				GROUP BY CAMP_NAME, ADDRESS, LOCATION_1, CAMP_IMG
+				ORDER BY CAMP_NAME) C)
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	
+	<!-- 체크박스로만 조회할 때 -->
+	<entry key="boxSelect">
+		SELECT *
+		FROM(SELECT ROWNUM RNUM,
+		        C.*
+		        FROM (SELECT CAMP_NAME,
+						LOCATION_1,
+				        ADDRESS,
+				        LISTAGG(NA.NATURAL_ATTRI,',') WITHIN GROUP(ORDER BY TO_NUMBER(cn.natural_no)) AS NATURAL_ATTRI,
+				        CAMP_IMG
+		            FROM(
+				        SELECT CAMP_NO,
+				                CI.CAMP_NAME,
+				                CI.LOCATION_1,
+				                CI.ADDRESS,
+				                CI.CAMP_IMG
+						FROM CAMP_INFO CI
+						JOIN CAMP_NATURAL CN USING (CAMP_NO)
+						JOIN "NATURAL" NA ON (CN.NATURAL_NO = NA.NATURAL_NO)
+						WHERE NATURAL_ATTRI = ? OR NATURAL_ATTRI = ?
+				        GROUP BY CAMP_NO, CI.CAMP_NAME, CI.ADDRESS, CI.LOCATION_1, CI.CAMP_IMG
+				)
+				JOIN CAMP_NATURAL CN USING(CAMP_NO)
+				JOIN "NATURAL" NA ON (CN.NATURAL_NO = NA.NATURAL_NO)
+				GROUP BY CAMP_NAME, ADDRESS, LOCATION_1, CAMP_IMG
+				ORDER BY CAMP_NAME) C)
+		        WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	
+	<!-- 체크박스 검색할 때 pet 조회 x일 때 -->
+	<entry key="noPetBoxSelect">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM,
+		                C.*
+		        FROM (SELECT CAMP_NAME,
+						LOCATION_1,
+				        ADDRESS,
+				        LISTAGG(NA.NATURAL_ATTRI,',') WITHIN GROUP(ORDER BY TO_NUMBER(cn.natural_no)) AS NATURAL_ATTRI,
+				        CAMP_IMG
+				FROM(
+				        SELECT CAMP_NO,
+				                CI.CAMP_NAME,
+				                CI.LOCATION_1,
+								CI.ADDRESS,
+								CI.CAMP_IMG
+						FROM CAMP_INFO CI
+						JOIN CAMP_NATURAL CN USING (CAMP_NO)
+						JOIN "NATURAL" NA ON (CN.NATURAL_NO = NA.NATURAL_NO)
+						WHERE NATURAL_ATTRI = ?
+				)
+				JOIN CAMP_NATURAL CN USING(CAMP_NO)
+				JOIN "NATURAL" NA ON (CN.NATURAL_NO = NA.NATURAL_NO)
+				GROUP BY CAMP_NAME, ADDRESS, LOCATION_1, CAMP_IMG
+				ORDER BY CAMP_NAME) C )
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	
+	<!-- 체크 박스 검색 시 테마 X 검색 -->
+	<entry key="noCheckBoxSelect">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM,
+		                C.*
+		        FROM (SELECT CAMP_NAME,
+						LOCATION_1,
+				        ADDRESS,
+				        LISTAGG(NA.NATURAL_ATTRI,',') WITHIN GROUP(ORDER BY TO_NUMBER(cn.natural_no)) AS NATURAL_ATTRI,
+				        CAMP_IMG
+				FROM(
+				        SELECT CAMP_NO,
+				                CI.CAMP_NAME,
+				                CI.LOCATION_1,
+								CI.ADDRESS,
+								CI.CAMP_IMG
+						FROM CAMP_INFO CI
+						JOIN CAMP_NATURAL CN USING (CAMP_NO)
+						JOIN "NATURAL" NA ON (CN.NATURAL_NO = NA.NATURAL_NO)
+						WHERE NATURAL_ATTRI = ?
+				)
+				JOIN CAMP_NATURAL CN USING(CAMP_NO)
+				JOIN "NATURAL" NA ON (CN.NATURAL_NO = NA.NATURAL_NO)
+				GROUP BY CAMP_NAME, ADDRESS, LOCATION_1, CAMP_IMG
+				ORDER BY CAMP_NAME) C )
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	
+	<entry key="locationPetSelect">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM,
+		        C.*
+		      FROM (SELECT CAMP_NAME,
+				        ADDRESS,
+				        LOCATION_1,
+				        LISTAGG(NA.NATURAL_ATTRI,',') WITHIN GROUP(ORDER BY TO_NUMBER(cn.natural_no)) AS NATURAL_ATTRI,
+				        CAMP_IMG
+				FROM (SELECT CAMP_NO,
+		                    CI.CAMP_NAME,
+		                    CI.ADDRESS,
+		                    CI.LOCATION_1,
+		                    CI.CAMP_IMG
+		              FROM CAMP_INFO CI
+		            JOIN CAMP_NATURAL CN USING(CAMP_NO)
+		            JOIN "NATURAL" NA ON (CN.NATURAL_NO=NA.NATURAL_NO)
+		            WHERE CI.LOCATION_1 = ? AND CI.LOCATION_2 = ?
+		            AND NATURAL_ATTRI = ?
+				)
+				JOIN CAMP_NATURAL CN USING(CAMP_NO)
+				JOIN "NATURAL" NA ON (CN.NATURAL_NO = NA.NATURAL_NO)
+				GROUP BY CAMP_NAME, ADDRESS, LOCATION_1, CAMP_IMG
+				ORDER BY CAMP_NAME) C)
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	
+	
+	<!-- 중간선 -->
+	
+	
+	<!-- 조회수 -->
+	<entry key="increaseCount">
+		UPDATE CAMP_INFO
+		SET COUNT = COUNT+1
+		WHERE CAMP_NO = ?
+	</entry>
+	
+	
+	<!-- 상세보기 화면(기본정보) -->
+	<entry key="selectCampDetail">
+		SELECT CAMP_NO,
+				CAMP_NAME,
+				ADDRESS,
+				CAMP_CALL,
+				CAMP_WEB,
+				CAMP_CONTENT,
+				CAMP_IMG
+		FROM CAMP_INFO CI
+		WHERE CAMP_NO = ?
+	</entry>
+	
+	
+	
+	<!-- 상세보기 자연경관 -->
+	<entry key="n1Detail">
+		SELECT NATURAL_ATTRI,
+				NATURAL_PIC
+		FROM "NATURAL"
+		JOIN CAMP_NATURAL USING (NATURAL_NO)
+		WHERE CAMP_NO = ?
+		    AND NATURAL_NO IN (1, 2, 3, 4)
+	</entry>
+	
+	
+	<!-- 지형 -->
+	<entry key="n2Detail">
+		SELECT NATURAL_ATTRI,
+				NATURAL_PIC
+		FROM "NATURAL"
+		JOIN CAMP_NATURAL USING (NATURAL_NO)
+		WHERE CAMP_NO = ?
+		    AND NATURAL_NO IN (5, 6, 7, 8, 9)
+	</entry>
+	
+	
+	
+	<!-- 편의시설 -->
+	<entry key="n3Detail">
+		SELECT NATURAL_ATTRI,
+				NATURAL_PIC
+		FROM "NATURAL"
+		JOIN CAMP_NATURAL USING (NATURAL_NO)
+		WHERE CAMP_NO = ?
+		    AND NATURAL_NO IN (10, 11, 12, 13, 14, 15, 16, 17)
+	
+	</entry>
+	
+	
+	
+	
+	
+</properties>
