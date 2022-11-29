@@ -12,7 +12,7 @@ import com.modac.member.model.service.MemberService;
 /**
  * Servlet implementation class emailCheck
  */
-@WebServlet("/emailCheck")
+@WebServlet("/emailCheck.me")
 public class emailCheck extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -35,12 +35,14 @@ public class emailCheck extends HttpServlet {
 		
 		if(result == 1){
 			
-			System.out.println("이미 존재하는 이메일입니다.");
+			System.out.println("이미 존재하는 아이디입니다.");
 		} else {
 			
-			System.out.println("사용 가능한 이메일입니다.");
+			System.out.println("사용 가능한 아이디입니다.");
 		}
 		response.getWriter().print(result);
+			
+
 	}
 
 	/**

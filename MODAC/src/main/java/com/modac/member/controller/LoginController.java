@@ -38,8 +38,10 @@ public class LoginController extends HttpServlet {
 		String memberPwd = request.getParameter("memberPwd");
 		
 		Member loginMember = ms.loginMember(memberId, memberPwd);
+		System.out.println(loginMember);
 		
 		if(loginMember == null) {
+//			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			HttpSession session = request.getSession();
 			session.setAttribute("alertMsg", "아이디 또는 비밀번호가 틀렸습니다.");
 			response.sendRedirect(request.getContextPath()+"/MemberloginForm.me");

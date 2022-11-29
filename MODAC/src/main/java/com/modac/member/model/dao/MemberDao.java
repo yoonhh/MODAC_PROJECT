@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
-import static com.modac.common.JDBCTemplate.*;
+import com.modac.common.JDBCTemplate;
 import com.modac.member.model.vo.Member;
 
 public class MemberDao {
@@ -31,8 +31,6 @@ public class MemberDao {
 			e.printStackTrace();
 		}		
 	}
-	
-	
 	/**
 	 * 로그인
 	 * @param memberId
@@ -70,14 +68,11 @@ public class MemberDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			close(rset);
-			close(psmt);
-		}
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(psmt);
+		}	
 		return m;
 	}
-	
-	
-	
 	/**
 	 * 회원가입
 	 * @param m
@@ -98,19 +93,20 @@ public class MemberDao {
 			psmt.setString(1, m.getMemberId());
 			psmt.setString(2, m.getMemberPwd());
 			psmt.setString(3, m.getMemberName());
-			psmt.setString(4, m.getMemberNic());
-			psmt.setString(5, m.getEmail());
+			psmt.setString(4, m.getEmail());
+			psmt.setString(5, m.getMemberNic());
 			
 			result = psmt.executeUpdate();
+			 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			close(psmt);
+			JDBCTemplate.close(psmt);
 		}
+	    System.out.println("dao : " + result);
 	    return result;
 	}
-	
 	
 	/**
 	 * 아이디 체크
@@ -139,14 +135,12 @@ public class MemberDao {
             // TODO Auto-generated catch block
             e.printStackTrace();
         } finally {
-            close(rset);
-            close(psmt);
+            JDBCTemplate.close(rset);
+            JDBCTemplate.close(psmt);
         }
 	    System.out.println(count);
 	    return count;
 	}
-	
-	
 	
 	/**
 	 * 아이디 찾기
@@ -184,14 +178,11 @@ public class MemberDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			close(rset);
-			close(psmt);
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(psmt);
 		}
 			return m;
 	}
-	
-	
-	
 	/**
 	 * 비밀번호찾기
 	 * @param memberId
@@ -218,17 +209,15 @@ public class MemberDao {
 			if(rset.next()) {
 				m = new Member(rset.getString("MEMBER_PWD"));
 			}
+			System.out.println("dao : " + m);
+			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
 		return m;
-		
 	}
-	
-	
-	
 	/**
 	 * 비밀번호찾고 업데이트
 	 * @return
@@ -254,12 +243,10 @@ public class MemberDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			close(psmt);
+			JDBCTemplate.close(psmt);
 		}
 		return result;
 	}
-	
-	
 	/**
 	 * 맴버커밋
 	 * @param memberId
@@ -279,6 +266,7 @@ public class MemberDao {
 			psmt.setString(1, memberId);
 			
 			rset = psmt.executeQuery();
+			
 				if(rset.next()) {
 					m = new Member(rset.getString("MEMBER_NO"),
 							rset.getString("MEMBER_ID"),
@@ -295,41 +283,34 @@ public class MemberDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			close(rset);
-			close(psmt);
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(psmt);
 		}
 		return m;
 	}
 	
-	
 	public int emailCheck(Connection conn, String checkemail) {
-		
-		int count = 0;
-		PreparedStatement psmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("emailCheck");
-		try {
+	    int count = 0;
+	    PreparedStatement psmt = null;
+	    ResultSet rset = null;
+	    String sql = prop.getProperty("emailCheck");
+	    try {
 			psmt = conn.prepareStatement(sql);
-	
+			
 			psmt.setString(1, checkemail);
-	
+			
 			rset = psmt.executeQuery();
-	
+			
 			if(rset.next()) {
 				count = rset.getInt(1);
-			}
-
+			} 
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(rset);
-			close(psmt);
+            JDBCTemplate.close(rset);
+            JDBCTemplate.close(psmt);
 		}
-		return count;
+	    return count;
 	}
-	
-	
-	
-	
-	
 }

@@ -111,20 +111,20 @@
     
 </head>
 <body>
-	
 
 	<form action="<%=contextPath %>/findPw.me" method="post" class="content">
 	    <div id="wrapper">
 	        <div id="fine">
 	            <div id="fineid">
-	                <button class="button" onclick="location.href ='<%=contextPath %>/views/member/fineId.jsp'">아이디찾기</button>
+	                <button class="button" onclick="location.href = '<%=contextPath %>/views/member/fineId.jsp'">아이디찾기</button>
 	            </div>
 	            <div id="finepwd">
-	                <button class="button" onclick="location.href = '<%=contextPath%>/views/member/findPwd.jsp'">비밀번호찾기</button>
+	                <button class="button" onclick="location.href = '<%=contextPath %>/views/member/finePwd.jsp'">비밀번호찾기</button>
 	            </div> 
 	        </div>
 	        <div id="divid">
 	            <span>아이디</span><input name="memberId" id="memberId" class="form-control" type="text" placeholder="아아디를 입력해주세요" required>
+<!-- 	            <input type="hidden" value="#memberId.value"> -->
 	        </div>
 	        <div id="divname">
 	            <span>이름</span><input name="memberName" id="memberName" class="form-control" type="text" placeholder="이름을 입력해주세요" required>
@@ -139,7 +139,7 @@
 	            <button id="btn" class="button" type="submit">비밀번호찾기</button>
 	        </div>
 	    </div>
-    </form>
+	</form>
 
 
     <script>
@@ -152,9 +152,6 @@
                 $("#checks").css('color', 'red');
             }
         });
-
-        
-
         $("#memberName").focusout(function() {
             if($("#memberName").val=="") {
                 $("#checks").text('이름을 입력해주세요.');
@@ -168,7 +165,6 @@
                 $("#checks").css('color', 'red');
             }
         });
-
 
     </script>
 

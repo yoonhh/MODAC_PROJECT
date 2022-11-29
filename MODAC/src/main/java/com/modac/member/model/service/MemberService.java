@@ -2,9 +2,10 @@ package com.modac.member.model.service;
 
 import java.sql.Connection;
 
-import static com.modac.common.JDBCTemplate.*;
+import com.modac.common.JDBCTemplate;
 import com.modac.member.model.dao.MemberDao;
 import com.modac.member.model.vo.Member;
+
 
 public class MemberService {
 	/**
@@ -15,10 +16,10 @@ public class MemberService {
 	 */
 	public Member loginMember(String memberId , String memberPwd) {
 		
-		Connection conn = getConnection();
+		Connection conn = JDBCTemplate.getConnection();
 		Member m = new MemberDao().loginMember(memberId , memberPwd , conn);
 		
-		close();
+		JDBCTemplate.close();
 		
 		return m;
 	}
@@ -29,39 +30,30 @@ public class MemberService {
 	 */
 	public int insertMember(Member m) {
 	    
-	    Connection conn = getConnection();
+	    Connection conn = JDBCTemplate.getConnection();
 	    
 	    int result = new MemberDao().insertMember(m , conn);
 	    
 	    if(result > 0) {
-	        commit(conn);
+	        JDBCTemplate.commit(conn);
 	    }else {
-	        rollback(conn);
+	        JDBCTemplate.rollback(conn);
 	    }
-	    close();
-	    
+	    JDBCTemplate.close();
+	    System.out.println("service : " + result);
 	    return result;
 	}
-	
-	
-	
 	/**
 	 * 
 	 * @param checkId => 회원가입 아이디 체크
 	 * @return
 	 */
 	public int idcheck(String checkId) {
-	    Connection conn = getConnection();
+	    Connection conn = JDBCTemplate.getConnection();
 	    int count = new MemberDao().idcheck(conn, checkId);
-	    close();
+	    JDBCTemplate.close();
 	    return count;
 	}
-	
-	
-	
-	
-	
-	
 	/**
 	 * 아이디 찾기
 	 * @param memberName
@@ -69,17 +61,14 @@ public class MemberService {
 	 * @return
 	 */
 	public Member fineId(String memberName, String email) {
-		Connection conn = getConnection();
+		Connection conn = JDBCTemplate.getConnection();
 		
 		Member m = new MemberDao().fineId(memberName, email, conn);
-		close();
+		JDBCTemplate.close();
 		
 		return m;
 		
 	}
-	
-	
-	
 	
 	/**
 	 * 비밀번호찾기
@@ -90,21 +79,20 @@ public class MemberService {
 	 */
 	public Member findPwd(String memberId, String memberName, String email) {
 		
-		Connection conn = getConnection();
+		Connection conn = JDBCTemplate.getConnection();
 		
 		Member m = new MemberDao().findPwd(memberId, memberName, email, conn);
-		
-		close();
+		System.out.println("ser"+m);
+		JDBCTemplate.close();
 		
 		return m;
 	}
-	
 	
 	/**
 	 * 비밀번호찾고변경
 	 */
 	public Member fineupdatePwd(String memberId, String memberName, String email, String updatePwd) {
-		Connection conn = getConnection();
+		Connection conn = JDBCTemplate.getConnection();
 		
 		Member updateMem = null;
 		
@@ -113,32 +101,27 @@ public class MemberService {
 		result = new MemberDao().fineUpdatePwd(memberId, memberName, email, updatePwd,conn);
 		System.out.println("result : "+result);
 		if(result > 0){
-			commit(conn);
+			JDBCTemplate.commit(conn);
 			updateMem = new MemberDao().selectMember(memberId,conn);
 			System.out.println("updateMem Service : " + updateMem);
 		}else {
-			rollback(conn);
+			JDBCTemplate.rollback(conn);
 		}
-		close();
+		JDBCTemplate.close();
 		return updateMem;
 	}
-	
-	
-	
 	/**
-	* 이메일 중복 체크
-	* @param checkEamil
-	* @return
-	*/
+	 * 이메일 중복 체크
+	 * @param checkEamil
+	 * @return
+	 */
 	public int emailCheck(String checkemail) {
-		Connection conn = getConnection();
-		System.out.println(checkemail);
-		int result = new MemberDao().emailCheck(conn, checkemail);
-		System.out.println(result);
-		close();
-		return result;
+	    Connection conn = JDBCTemplate.getConnection();
+	    System.out.println(checkemail);
+	    int result = new MemberDao().emailCheck(conn, checkemail);
+	    System.out.println(result);
+	    JDBCTemplate.close();
+	    return result;
 	}
-	
-	
 	
 }

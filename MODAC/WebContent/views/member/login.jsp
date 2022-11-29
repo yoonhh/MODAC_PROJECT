@@ -48,7 +48,7 @@ h2{
     margin-left: 50px;
 }
 .login span{
-    font-size: 15px;
+    font-size: 15px;	
     padding: 10px;
 }
 
@@ -80,83 +80,73 @@ h2{
 </style>
 </head>
 <body>
-	<%@ include file = "../common/menubar.jsp" %>
-
-    <script>
-        let msg = "<%= alertMsg%>"; // let msg = 성공적으로 로그인이 되었습니다.
-        if(msg != "null"){
-            alert(msg);
-            // 알림창을 띄워준후 session에 담긴 해당메세지는 지워줘야함.
-            // 안그러면 menubar.jsp가 로딩될때마다 매번 alert가 계속 뜰것
-            <% session.removeAttribute("alertMsg");%>
-        }
-    </script>
-
-
-
+<%@ include file="../common/menubar.jsp" %>
+	<script>
+		let msg = "<%= alertMsg%>"; // let msg = 성공적으로 로그인이 되었습니다.
+		if(msg != "null"){
+			alert(msg);
+			// 알림창을 띄워준후 session에 담긴 해당메세지는 지워줘야함.
+			// 안그러면 menubar.jsp가 로딩될때마다 매번 alert가 계속 뜰것
+			<% session.removeAttribute("alertMsg");%>
+		}
+		/* <button id="loginbtn" style="background-color: #F0A500; color: white; border:none" onclick="submitLogin()">로그인</button> */
+	</script>
+	
 		<div id="back">
      		<form action="<%=contextPath %>/login.me" method="post" id="loginform">
 				<div class="login" id="login_form">
 				<h2>로그인</h2>
-				     <input class="inp" id="loginId" type="text" name="memberId" placeholder="아이디">
-				     <input class="inp" id="loginPwd" type="password" name="memberPwd" placeholder="비밀번호">
-				     <input type="checkbox" id="saveId"><span>아이디저장</span>
-					<button id="loginbtn" type="button" class="btn btn-warning" onclick="submitLogin();">로그인</button>
-			      <ul>
-			          <li><a href="<%=contextPath%>/MemberFineIdPwd.me">아이디/비밀번호찾기</a></li>
-			          <li><a href="<%=contextPath %>/enrollFrom.me">회원가입</a></li>
-			      </ul>
+                    <input class="inp" id="loginId" type="text" name="memberId" placeholder="아이디">
+                    <input class="inp" id="loginPwd" type="password" name="memberPwd" placeholder="비밀번호">
+                    <input type="checkbox" id="saveId"><span>아이디저장</span>
+
+                    
+                    <button id="loginbtn" type="button" class="btn btn-warning" onclick="submitLogin()">로그인</button>
+                <ul>
+                    <li><a href="<%=contextPath%>/MemberFineIdPwd.me">아이디/비밀번호찾기</a></li>
+                    <li><a href="<%=contextPath %>/enrollFrom.me">회원가입</a></li>
+                </ul>
   				</div>
  			</form>
 		</div>
-
-
-        <script>
-            $(function(){
-                getCookie();
-            });
-
-
-            function submitLogin(){
+		<script>
+	    $(function(){
+	    	getCookie();
+	    });
+        function submitLogin(){
             
-                let memberId = $("input[name=memberId]").val();
-                
-                if($("#saveId").is(":checked")){ // true 체크된 상태
-                    document.cookie = "saveId="+memberId+"; path=/; max-age="+60*60*24*7; // 쿠키 최대시간 설정 60ms * 60min * 24hour * 7day
-                    console.log("체크");
-                } else{ // 체크 안된상태
-                    document.cookie = "saveId="+memberId+"; path=/; max-age="+0; // 최대시간을 0으로 설정해서 해당쿠키를 제거.
-                }
-                let form = $("#loginform");
-                form.submit();
-            };
-
-
-            function getCookie(){
-                let value = "";
-                if(document.cookie.length>0){
-                    let index = document.cookie.indexOf("saveId="); // saveId = admin; path=/; max-age=0;
-                    if(index != -1){
-                        index += "saveId=".length;
-                        let end = document.cookie.indexOf(";",index);
-                        console.log(index, end);
-                        if(end == -1){
-                            value = document.cookie.substring(index);
-                        }else{
-                            value = document.cookie.substring(index, end);
-                        }
-                        $("input[name=memberId").val(value);
-                        $("#saveId").attr("ckecked","true");
+            let memberId = $("input[name=memberId]").val();
+            
+            if($("#saveId").is(":checked")){ // true 체크된 상태
+               document.cookie = "saveId="+memberId+"; path=/; max-age="+60*60*24*7; // 쿠키 최대시간 설정 60ms * 60min * 24hour * 7day
+               console.log("체크");
+            }else{ // 체크 안된상태
+               document.cookie = "saveId="+memberId+"; path=/; max-age="+0; // 최대시간을 0으로 설정해서 해당쿠키를 제거.
+            }
+            let form = $("#loginform");
+            form.submit();
+         }
+        function getCookie(){
+            let value = "";
+            if(document.cookie.length>0){
+                let index = document.cookie.indexOf("saveId="); // saveId = admin; path=/; max-age=0;
+                if(index != -1){
+                    index += "saveId=".length;
+                    let end = document.cookie.indexOf(";",index);
+                    console.log(index, end);
+                    if(end == -1){
+                    	value = document.cookie.substring(index);
+                    }else{
+                    	value = document.cookie.substring(index, end);                    	
                     }
+		            $("input[name=memberId").val(value);
+		            $("#saveId").attr("ckecked","true");
                 }
-            };
-            </script>
-
-
-
-
-
+            }
+        }
+		</script>
 </body>
+
 
 
 </html>

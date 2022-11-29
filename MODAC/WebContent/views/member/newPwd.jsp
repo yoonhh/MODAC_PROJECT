@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    
 
     <title>비밀번호 재설정</title>
     <style>
@@ -149,49 +149,44 @@
                         </div>
                     </div>
                     <div id="btn-area">
-                        <div class="alert alert-success" id="alert-success">비밀번호가 일치합니다.</div>
-                        <div class="alert alert-danger" id="alert-danger">비밀번호가 일치하지 않습니다.</div>
+                        	<div class="alert alert-success" id="alert-success">비밀번호가 일치합니다.</div>
+							<div class="alert alert-danger" id="alert-danger">비밀번호가 일치하지 않습니다.</div>
                     </div>
-                    <input id="submit" type="submit" onclick="return validate();"disabled value="비밀번호 재설정">
+                        <input id="submit" type="submit" onclick="return validate();"disabled value="비밀번호 재설정">
                 </form>
             </div>
 	    </div>
-    
-
-
-    <script>
-            $(function(){
-                $("#alert-success").hide();
-                $("#alert-danger").hide();
-                $("input").keyup(function(){
-                    var pwd1=$("#updatePwd").val();
-                    var pwd2=$("#checkPwd").val();
-                    
-                    if(pwd1 != "" || pwd2 != ""){
-                        if(pwd1 == pwd2){
-                            $("#alert-success").show();
-                            $("#alert-danger").hide();
-                            $("#submit").removeAttr("disabled");
-                        }else{
-                            $("#alert-success").hide();
-                            $("#alert-danger").show();
-                            $("#submit").attr("disabled", "disabled");
-                        }
-                    }
-                });
-            });
-
-
-            function validate() {
-                let pwd1=$("#updatePwd").val();
-                let pwdCheck2 = /^[a-z\d!@#$%^&*]{5,15}$/;
-                if (!pwdCheck2.test(pwd1)) {
-                    alert("비밀번호는 영문자+숫자+특수문자 조합으로 5~15자리 사용해야 합니다.");
-                    return false;
-                };
-            };
+<script>
+    $(function(){
+        $("#alert-success").hide();
+        $("#alert-danger").hide();
+        $("input").keyup(function(){
+            var pwd1=$("#updatePwd").val();
+            var pwd2=$("#checkPwd").val();
             
-    </script>
+            if(pwd1 != "" || pwd2 != ""){
+                if(pwd1 == pwd2){
+                    $("#alert-success").show();
+                    $("#alert-danger").hide();
+                    $("#submit").removeAttr("disabled");
+                }else{
+                    $("#alert-success").hide();
+                    $("#alert-danger").show();
+                    $("#submit").attr("disabled", "disabled");
+                }    
+            }
+        });
+    });
+    function validate() {
+    let pwd1=$("#updatePwd").val();
+    let pwdCheck2 = /^[a-z\d!@#$%^&*]{5,15}$/;
+    if (!pwdCheck2.test(pwd1)) {
+      alert("비밀번호는 영문자+숫자+특수문자 조합으로 5~15자리 사용해야 합니다.");
+      return false;
+    	};
+    }
+    
+</script>
 
 
     

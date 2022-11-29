@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-
+    
+    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,9 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <title>아이디·비밀번호 찾기</title>
-
-
-    <style>
+        <style>
         
         button {
             cursor: pointer;
@@ -185,14 +183,10 @@
        
 
     </style>
-    
-
-    
-</head>
-<body>
-
     <%@ include file="../common/menubar.jsp" %>
+</head>
 
+<body>
     <div id="displayId">
         <div  class="wrapper">
             <div id="fine1">
@@ -219,8 +213,6 @@
 
         </div>
     </div>
-
-
 
 
 
@@ -252,8 +244,8 @@
             </div>
         </div>
     </div>
-
-
+    
+    
     <script>
         $("#displayPwd").hide();
         
@@ -267,7 +259,5 @@
             $("#displayPwd").hide();
             }
     </script>
-
-    
 </body>
 </html>

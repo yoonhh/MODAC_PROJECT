@@ -30,6 +30,7 @@ public class idCheck extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    String checkId = request.getParameter("checkId");
+	    
 	    int count = new MemberService().idcheck(checkId);
 	    if(count > 0) { // 중복된 아이디가 존재한다. => 사용불가
 	        response.getWriter().print("NNNNN");

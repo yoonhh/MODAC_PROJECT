@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/MemberFineIdPwd.me")
 public class MemberFineIdPwd extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -27,8 +27,8 @@ public class MemberFineIdPwd extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("views/member/fineIdPwd.jsp").forward(request, response);
-
-
+		
+		
 	}
 
 	/**
