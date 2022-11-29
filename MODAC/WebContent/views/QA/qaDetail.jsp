@@ -289,7 +289,7 @@
 							
 							
 							result+="<tr>"
-										+"<td>"+i.writer+"</td>"
+										+"<td style='width:15%'>"+i.writer+"</td>"
 										+"<td>"+i.replyContent+"</td>"
 										+"<td style='float : right;'>"+i.createDate+"</td>"
 										
