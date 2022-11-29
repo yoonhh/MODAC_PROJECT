@@ -37,19 +37,20 @@
 
 #buttons {
 	text-align: center;
+	font-family: 'Do Hyeon', sans-serif;
 }
 
 #btn-campInfo {
 	background-color: rgb(240, 165, 0);
 	color:white;
-	font-size: 17px;
+	font-size: 20px;
 	width: 300px;
 	height: 45px;
 }
 #btn-notice {
-	background-color: gray;
+	background-color: #BDBDBD;
 	color: white;
-	font-size: 17px;
+	font-size: 20px;
 	width: 300px;
 	height: 45px;
 	
@@ -65,12 +66,12 @@
 	border-top: 2px solid rgb(240, 165, 0);
 	border-bottom: 2px solid rgb(240, 165, 0);
 	color: rgb(74, 57, 51);
-	font-size: 25px;
-	font-weight: bold;
+	font-size: 35px;
+	/* font-weight: bold; */
 	margin-left: 7%;
 	margin-right: 7%;
 	padding: 15px 10px 15px 50px;
-
+	font-family: 'Do Hyeon', sans-serif;
 }
 
 #gall {
