@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd"> 
+<properties>
+	<entry key = "selectNoticeList">
+			SELECT 
+    			ROWNUM,
+    			X.*
+			FROM (SELECT 
+			            POST_NO,
+			            CATEGORY_NO,
+			            NOTICE_TITLE,
+			            WRITER,
+			            CREATE_DATE,
+			            READ_COUNT
+			        FROM NOTICE N 
+					JOIN MEMBER M ON (MEMBER_NIC = WRITER)
+					WHERE M.STATUS = 'N' AND N.STATUS = 'N' AND CATEGORY_NO = '2' AND MEMBER_LEVEL = 10
+			        ORDER BY CREATE_DATE DESC, POST_NO DESC) X
+			<![CDATA[WHERE ROWNUM <= 3]]>
+
+			UNION ALL
+	
+			SELECT * 
+			FROM (
+					SELECT ROWNUM RNUM, A.*
+					FROM (SELECT 
+	            			POST_NO,
+	            			CATEGORY_NO,
+	            			NOTICE_TITLE,
+	            			WRITER,
+	            			CREATE_DATE,
+	            			READ_COUNT
+                			FROM NOTICE N 
+					JOIN MEMBER M ON (MEMBER_NIC = WRITER)
+					WHERE M.STATUS = 'N' AND N.STATUS = 'N' AND CATEGORY_NO = '1' AND MEMBER_LEVEL = 10 AND  $ LIKE ?
+            		ORDER BY CREATE_DATE DESC, POST_NO DESC) A
+		     )
+			WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="increaseCount">
+		UPDATE NOTICE
+		SET READ_COUNT = READ_COUNT + 1
+		WHERE POST_NO = ?
+			AND STATUS = 'N'
+	</entry>
+	
+	<entry key="selectNotice">
+		SELECT POST_NO,
+			   CATEGORY_NO,
+			   NOTICE_TITLE,
+			   NOTICE_CONTENT,
+			   WRITER,
+			   CREATE_DATE
+		FROM NOTICE N
+		JOIN MEMBER M ON (MEMBER_NIC = WRITER)
+		WHERE POST_NO = ?
+			AND N.STATUS = 'N'
+	</entry>
+	
+	<entry key="insertNotice">
+		INSERT INTO NOTICE
+		(	BOARD_NO,
+			POST_NO,
+			CATEGORY_NO,
+			NOTICE_TITLE,
+			NOTICE_CONTENT,
+			WRITER
+		)
+		VALUES
+		(	2,
+			SEQ_NNO.NEXTVAL,
+			?,
+			?,
+			?,
+			?
+		)
+	</entry>
+	
+	<entry key="insertAttachmentList">
+		INSERT INTO ATTACHMENT (
+				PHOTO_NO, 
+				BOARD_NO, 
+				POST_NO, 
+				ORIGIN_NAME, 
+				NEW_NAME, 
+				PATH,
+				FILE_LEVEL)
+		VALUES 
+				(SEQ_FNO.NEXTVAL, 
+				2, 
+				SEQ_NNO.CURRVAL, 
+				?, 
+				?, 
+				?,
+				?)
+	</entry>
+	
+	<entry key="insertNewAttachment">
+		INSERT INTO ATTACHMENT (PHOTO_NO, BOARD_NO, POST_NO, ORIGIN_NAME, NEW_NAME, PATH, FILE_LEVEL)
+		VALUES (SEQ_FNO.NEXTVAL, 2, ?, ?, ?, ?, ?)
+	
+	</entry>
+	
+	<entry key="updateNotice">
+		UPDATE NOTICE
+		SET NOTICE_TITLE = ?,
+			NOTICE_CONTENT = ?,
+			CATEGORY_NO = ?
+		WHERE POST_NO = ?
+			AND STATUS = 'N'
+	</entry>
+	
+	<entry key="deleteNotice">
+		UPDATE NOTICE
+		SET STATUS = 'Y'
+		WHERE POST_NO = ?
+	</entry>
+	
+	<entry key="deleteAttachment">
+		UPDATE ATTACHMENT
+		SET STATUS = 'Y'
+		WHERE POST_NO = ?
+	</entry>
+	
+	<entry key="selectAttachment">
+		SELECT PHOTO_NO,
+		       ORIGIN_NAME,
+		       NEW_NAME,
+		       PATH,
+		       FILE_LEVEL
+		FROM ATTACHMENT
+		WHERE BOARD_NO = 2
+		  AND POST_NO = ?
+		  AND STATUS = 'N'
+	</entry>
+	
+	<entry key="updateAttachment">
+		UPDATE ATTACHMENT
+      SET ORIGIN_NAME = ?,
+         NEW_NAME = ?,
+         PATH = ?,
+         UPLOAD_DATE = SYSDATE,
+         FILE_LEVEL = ?
+      WHERE PHOTO_NO = ? 
+	</entry>
+	
+	<entry key="selectListCount">
+		SELECT COUNT(*) COUNT
+		FROM NOTICE N 
+		JOIN MEMBER M ON (MEMBER_NIC = WRITER)
+		WHERE M.STATUS = 'N' AND N.STATUS = 'N' AND CATEGORY_NO = '1' AND MEMBER_LEVEL = 10
+	</entry>
+	
+	<entry key="deleteUpfile">
+		UPDATE ATTACHMENT
+		SET STATUS = 'Y'
+		WHERE PHOTO_NO = ?
+	</entry>
+	
+	
+</properties>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
