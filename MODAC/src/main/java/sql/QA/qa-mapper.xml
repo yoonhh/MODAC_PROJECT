@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd"> 
+<properties>
+	<entry key="selectQaList">
+		SELECT * 
+		FROM (
+			SELECT ROWNUM RNUM, A.*
+			FROM (SELECT POST_NO,
+				         POST_TITLE,
+				         HIDDEN_POST,
+			             MEMBER_NIC,
+				         CREATE_DATE,
+				         READ_COUNT
+			    	FROM QA Q
+		    		JOIN MEMBER M USING(MEMBER_NO)
+		    		WHERE M.STATUS = 'N' AND Q.STATUS = 'N' AND $ LIKE ?
+		    		ORDER BY CREATE_DATE DESC, POST_NO DESC) A
+		     )
+		WHERE RNUM BETWEEN ? AND ?
+		
+	</entry>
+	
+	<entry key="selectListCount">
+		SELECT COUNT(*) COUNT
+		FROM QA
+		WHERE STATUS = 'N'
+	</entry>
+	
+	<entry key="selectQa">
+		SELECT POST_NO,
+			   POST_TITLE,
+			   POST_CONTENT,
+			   MEMBER_NIC,
+			   CREATE_DATE,
+			   HIDDEN_POST
+		FROM QA Q
+		JOIN MEMBER M USING (MEMBER_NO)
+		WHERE POST_NO = ?
+			AND Q.STATUS = 'N'
+	</entry>
+	
+	<entry key="checkPwd">
+		SELECT COUNT(*) COUNT
+		FROM QA
+		WHERE POST_NO = ?
+			AND POST_PWD = ?
+	</entry>
+	
+	<entry key="selectAttachment">
+		SELECT PHOTO_NO,
+		       ORIGIN_NAME,
+		       NEW_NAME,
+		       PATH,
+		       FILE_LEVEL
+		FROM ATTACHMENT
+		WHERE BOARD_NO = 4
+		  AND POST_NO = ?
+		  AND STATUS = 'N'
+	</entry>
+	
+	<entry key="increaseCount">
+		UPDATE QA
+		SET READ_COUNT = READ_COUNT + 1
+		WHERE POST_NO = ?
+			AND STATUS = 'N'
+	</entry>
+	
+	
+	<entry key="insertQa">
+		<!-- 일반 질문  -->
+		INSERT INTO QA
+			(BOARD_NO, POST_NO, POST_TITLE, POST_CONTENT, MEMBER_NO, HIDDEN_POST)
+		VALUES
+			(4, SEQ_QANO.NEXTVAL, ?, ?, ?, 'N')
+	</entry>
+	
+	<entry key="insertHiddenQa">
+		<!-- 비밀글 등록  -->
+		INSERT INTO QA
+			(BOARD_NO, POST_NO, POST_TITLE, POST_CONTENT, MEMBER_NO, HIDDEN_POST, POST_PWD)
+		VALUES
+			(4, SEQ_QANO.NEXTVAL, ?, ?, ?, ?, ?)
+	</entry>
+	
+	<entry key="insertAttachmentList">
+		INSERT INTO ATTACHMENT (
+				PHOTO_NO, 
+				BOARD_NO, 
+				POST_NO, 
+				ORIGIN_NAME, 
+				NEW_NAME, 
+				PATH,
+				FILE_LEVEL)
+		VALUES 
+				(SEQ_FNO.NEXTVAL, 
+				4, 
+				SEQ_QANO.CURRVAL, 
+				?, 
+				?, 
+				?,
+				?)
+	</entry>
+	
+	<entry key="updateQa">
+		UPDATE QA
+		SET POST_TITLE = ?,
+			POST_CONTENT = ?
+		WHERE POST_NO = ?
+			AND STATUS = 'N'
+	</entry>
+	
+	
+	<entry key="insertNewAttachment">
+		INSERT INTO ATTACHMENT (PHOTO_NO, BOARD_NO, POST_NO, ORIGIN_NAME, NEW_NAME, PATH, FILE_LEVEL)
+		VALUES (SEQ_FNO.NEXTVAL, 4, ?, ?, ?, ?, ?)
+	</entry>
+	
+	
+	<entry key="updateAttachment">
+		UPDATE ATTACHMENT
+      SET ORIGIN_NAME = ?,
+         NEW_NAME = ?,
+         PATH = ?,
+         UPLOAD_DATE = SYSDATE,
+         FILE_LEVEL = ?
+      WHERE PHOTO_NO = ? 
+	</entry>
+	
+	
+	<entry key="deleteQa">
+		UPDATE QA
+		SET STATUS = 'Y'
+		WHERE POST_NO = ?
+	</entry>
+	
+	
+	<entry key = "insertReply">
+      INSERT INTO REPLY(REPLY_NO, BOARD_NO ,REPLY_CONTENT, POST_NO, WRITER)
+      VALUES(SEQ_PLYNO.NEXTVAL, 4, ?, ?, ?)
+   </entry>
+
+	<entry key = "selectReplyList">
+		SELECT REPLY_NO, REPLY_CONTENT, MEMBER_NIC, TO_CHAR(CREATE_DATE, 'YY/MM/DD HH:MI:SS')CREATE_DATE
+		FROM REPLY R
+		JOIN MEMBER ON (WRITER= MEMBER_NO)
+		WHERE R.STATUS = 'N'
+			AND POST_NO = ? AND BOARD_NO = 4
+		ORDER BY CREATE_DATE DESC , REPLY_NO DESC
+		
+	
+	
+	</entry>
+	
+</properties>
