@@ -43,7 +43,7 @@ public class NoticeService {
 			rollback(conn);
 		}
 		
-		close();
+		
 		return result;
 	}
 	
