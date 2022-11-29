@@ -266,7 +266,7 @@ a{text-decoration: none;}
 				</ul>
 			</li>
 			<li class="dept1">
-				<a href="#">중고장터</a>
+				<a href="<%=contextPath %>/list.mk?currentPage=1">중고장터</a>
 				<ul class="inner_menu">
 					<li class="dept2">
 						<a href="#">&nbsp;</a>

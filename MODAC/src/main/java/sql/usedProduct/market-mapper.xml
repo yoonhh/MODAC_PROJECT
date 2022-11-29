@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+	<!-- 전체 게시글 갯수 -->
+	<entry key="selectListCount">
+		SELECT COUNT(*) COUNT
+		FROM USED_PRODUCT
+		WHERE STATUS = 'N'
+	</entry>
+	
+	<!-- 조회수 증가 -->
+	<entry key="increaseCount">
+		UPDATE USED_PRODUCT
+		SET READ_COUNT = READ_COUNT + 1
+		WHERE POST_NO = ?
+		AND STATUS = 'N'
+	</entry>
+	
+	<!-- 게시글 목록페이지 -->
+	<entry key="marketList">
+		SELECT * 
+		FROM (
+			SELECT ROWNUM RNUM, A.*
+			FROM(
+				SELECT POST_TITLE,
+					   CREATE_DATE,
+					   READ_COUNT,
+					   SALE,
+					   MEMBER_NIC,
+					   POST_NO,
+					   PATH || NEW_NAME AS "TITLEIMG"
+				FROM USED_PRODUCT U
+				JOIN MEMBER M ON (U.MEMBER_NO = M.MEMBER_NO)
+				JOIN ATTACHMENT A USING (POST_NO)
+				WHERE U.STATUS = 'N' AND FILE_LEVEL = 1 AND $ LIKE ?
+				ORDER BY CREATE_DATE DESC, POST_NO DESC
+				) A	
+			)
+		WHERE RNUM BETWEEN ? AND ? 
+	</entry>
+	
+	<!-- 게시글 목록 썸네일 파일 -->
+<!-- 	<entry key="marketListAtt"> -->
+<!-- 		SELECT NEW_NAME -->
+<!-- 		FROM ATTACHMENT -->
+<!-- 		WHERE FILE_LEVEL = 1 AND POST_NO = ? -->
+<!-- 	</entry> -->
+	
+	
+	<!-- 게시글 상세페이지 -->
+	<entry key="selectMarket">
+		SELECT POST_TITLE,
+			   POST_CONTENT,
+			   CREATE_DATE,
+			   SALE,
+			   MEMBER_NO,
+			   POST_NO,
+			   MEMBER_NIC
+		FROM USED_PRODUCT U
+		JOIN MEMBER M USING(MEMBER_NO)
+		WHERE POST_NO = ? 
+		AND U.STATUS = 'N'
+	</entry>
+	
+	<!-- 게시글 상세페이지 첨부파일 조회-->
+	<entry key="selectAttachment">
+		SELECT PHOTO_NO,
+			   ORIGIN_NAME,
+			   NEW_NAME,
+			   PATH,
+			   BOARD_NO,
+			   FILE_LEVEL
+		FROM ATTACHMENT
+		JOIN BOARD USING(BOARD_NO)
+		WHERE POST_NO = ? AND STATUS='N'
+	</entry>
+	
+	<!-- 마켓 게시글 작성 -->
+	<entry key="insertMarketPost">
+		INSERT INTO USED_PRODUCT(POST_NO, POST_TITLE, POST_CONTENT, MEMBER_NO, BOARD_NO)
+		VALUES (SEQ_SALENO.NEXTVAL, ? , ? , ? , '9')
+	</entry>
+	
+	<!-- 마켓 게시글 작성 이미지 첨부 -->
+	<entry key="insertAttachment">
+		INSERT INTO ATTACHMENT(PHOTO_NO, POST_NO, ORIGIN_NAME, NEW_NAME, PATH, FILE_LEVEL, BOARD_NO)
+		VALUES(SEQ_FNO.NEXTVAL, SEQ_SALENO.CURRVAL, ? , ? , ? , ? , '9')
+	</entry>
+	
+	<!-- 마켓 이미지 첨부  -->
+	<entry key="insertNewAttachment">
+		INSERT INTO ATTACHMENT(PHOTO_NO, POST_NO, ORIGIN_NAME, NEW_NAME, PATH, FILE_LEVEL, BOARD_NO)
+		VALUES(SEQ_FNO.NEXTVAL, ? , ? , ? , ? , ? , '9')
+	</entry>
+	
+	<!-- 마켓 게시글 수정 -->
+	<entry key="updateMarket">
+		UPDATE USED_PRODUCT
+		SET POST_TITLE = ?,
+			POST_CONTENT = ? 
+		WHERE POST_NO = ?
+	</entry>
+	
+	<entry key="updateAttachment">
+		UPDATE ATTACHMENT
+		SET ORIGIN_NAME = ?,
+			NEW_NAME = ?,
+			PATH = ?,
+			UPLOAD_DATE = SYSDATE
+		WHERE PHOTO_NO = ?
+	</entry>
+	
+	<entry key="deleteMarket">
+		UPDATE USED_PRODUCT
+		SET STATUS = 'Y'
+		WHERE POST_NO = ?
+	</entry>
+	
+	<entry key="deleteAttachment">
+		UPDATE ATTACHMENT
+		SET STATUS = 'Y'
+		WHERE BOARD_NO = ?
+	</entry>
+	
+	<!-- 게시글 수정 이미지 삭제 -->
+	<entry key="deleteAtt">
+		UPDATE ATTACHMENT
+		SET STATUS = 'Y'
+		WHERE PHOTO_NO = ? 
+	</entry>
+
+	<!-- 판매완료-->
+	<entry key="changeSale">
+		UPDATE USED_PRODUCT
+		SET SALE = 'N'
+		WHERE POST_NO = ?
+		AND SALE = 'Y'
+	</entry>
+	
+	<!-- 끌어올리기: 등록일 갱신 -->
+	<entry key="updateDate">
+		UPDATE USED_PRODUCT
+		SET CREATE_DATE = SYSDATE
+		WHERE POST_NO = ?
+		AND SALE = 'Y'
+	</entry>
+	
+	<!-- 판메중만 보기 -->
+	<entry key="onlySaleView">
+		SELECT * 
+		FROM (
+			SELECT ROWNUM RNUM, A.*
+				FROM(
+					SELECT POST_TITLE,
+						   CREATE_DATE,
+						   READ_COUNT,
+						   SALE,
+						   MEMBER_NIC,
+						   POST_NO,
+						   PATH || NEW_NAME AS "TITLEIMG"
+					FROM USED_PRODUCT U
+					JOIN MEMBER M ON (U.MEMBER_NO = M.MEMBER_NO)
+					JOIN ATTACHMENT USING (POST_NO)
+					WHERE U.STATUS = 'N' AND U.SALE = 'Y' AND FILE_LEVEL = 1 AND $ LIKE ?
+					ORDER BY CREATE_DATE DESC, POST_NO DESC
+				) A	
+			)
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>	
+	
+	<!-- 날짜순 정렬 -->
+	<entry key="sortOfDate">
+		SELECT * 
+		FROM (
+			SELECT ROWNUM RNUM, A.*
+				FROM(
+					SELECT POST_TITLE,
+						   CREATE_DATE,
+						   READ_COUNT,
+						   SALE,
+						   MEMBER_NIC,
+						   POST_NO,
+						   PATH || NEW_NAME AS "TITLEIMG"
+					FROM USED_PRODUCT U
+					JOIN MEMBER M ON (U.MEMBER_NO = M.MEMBER_NO)
+					JOIN ATTACHMENT USING (POST_NO)
+					WHERE U.STATUS = 'N' AND FILE_LEVEL = 1 AND $ LIKE ?
+					ORDER BY CREATE_DATE DESC, POST_NO DESC
+				) A	
+			)
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<!-- 조회순 정렬 -->
+	<entry key="sortOfCount">
+		SELECT * 
+		FROM (
+			SELECT ROWNUM RNUM, A.*
+				FROM(
+					SELECT POST_TITLE,
+						   CREATE_DATE,
+						   READ_COUNT,
+						   SALE,
+						   MEMBER_NIC,
+						   POST_NO,
+						   PATH || NEW_NAME AS "TITLEIMG"
+					FROM USED_PRODUCT U
+					JOIN MEMBER M ON (U.MEMBER_NO = M.MEMBER_NO)
+					JOIN ATTACHMENT USING (POST_NO)
+					WHERE U.STATUS = 'N' AND FILE_LEVEL = 1 AND $ LIKE ?
+					ORDER BY READ_COUNT DESC
+				) A	
+			)
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<!-- 날짜순 정렬-판매중만 보기 -->
+	<entry key="sortOfDateOnlySale">
+		SELECT * 
+		FROM (
+			SELECT ROWNUM RNUM, A.*
+				FROM(
+					SELECT POST_TITLE,
+						   CREATE_DATE,
+						   READ_COUNT,
+						   SALE,
+						   MEMBER_NIC,
+						   POST_NO,
+						   PATH || NEW_NAME AS "TITLEIMG"
+					FROM USED_PRODUCT U
+					JOIN MEMBER M ON (U.MEMBER_NO = M.MEMBER_NO)
+					JOIN ATTACHMENT USING (POST_NO)
+					WHERE U.STATUS = 'N' AND U.SALE = 'Y' AND FILE_LEVEL = 1 AND $ LIKE ?
+					ORDER BY CREATE_DATE DESC, POST_NO DESC
+				) A	
+			)
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<!-- 조회순 정렬-판매중만 보기 -->
+	<entry key="sortOfCountOnlySale">
+		SELECT * 
+		FROM (
+			SELECT ROWNUM RNUM, A.*
+				FROM(
+					SELECT POST_TITLE,
+						   CREATE_DATE,
+						   READ_COUNT,
+						   SALE,
+						   MEMBER_NIC,
+						   POST_NO,
+						   PATH || NEW_NAME AS "TITLEIMG"
+					FROM USED_PRODUCT U
+					JOIN MEMBER M ON (U.MEMBER_NO = M.MEMBER_NO)
+					JOIN ATTACHMENT USING (POST_NO)
+					WHERE U.STATUS = 'N' AND U.SALE = 'Y' AND FILE_LEVEL = 1 AND $ LIKE ?
+					ORDER BY READ_COUNT DESC
+				) A	
+			)
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<!-- 댓글조회 -->
+	<entry key = "selectReplyList">
+		SELECT REPLY_NO, 
+			   REPLY_CONTENT, 
+			   MEMBER_NIC, 
+			   TO_CHAR(CREATE_DATE, 'YY/MM/DD HH:MI:SS')CREATE_DATE
+		FROM REPLY R
+		JOIN MEMBER ON (WRITER= MEMBER_NO)
+		WHERE R.STATUS = 'N'
+			AND POST_NO = ?
+			AND BOARD_NO = 9
+		ORDER BY CREATE_DATE DESC , REPLY_NO DESC
+	</entry>
+	
+	<!-- 댓글 작성 -->
+	<entry key = "insertReply">
+      INSERT INTO REPLY(REPLY_NO,BOARD_NO ,REPLY_CONTENT, POST_NO, WRITER)
+      VALUES(SEQ_PLYNO.NEXTVAL,9,?,?,?)
+   </entry>
+	
+	
+	
+
+
+
+
+
+
+
+</properties>
