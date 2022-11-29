@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="selectCamStagramList">
+		SELECT * 
+		FROM (
+			SELECT ROWNUM RNUM, A.*
+			FROM (
+			SELECT PATH || NEW_NAME AS "TITLE_IMG",
+				   C.POST_NO,
+			       POST_CONTENT,
+			       MEMBER_NO,
+			       MEMBER_NIC,
+			       CREATE_DATE,
+			       (SELECT COUNT(*)
+			          FROM BOARD_LIKE
+			         WHERE POST_NO = C.POST_NO) AS "LIKE_COUNT",
+			       (SELECT COUNT(*)
+                      FROM REPLY
+                     WHERE BOARD_NO=8 AND POST_NO = C.POST_NO) AS "REPLY_COUNT"
+			FROM CAMP_GRAM C
+			JOIN ATTACHMENT A ON A.POST_NO = C.POST_NO
+			JOIN MEMBER M USING(MEMBER_NO)
+			WHERE $ LIKE ? AND M.STATUS = 'N' AND C.STATUS = 'N' AND A.STATUS = 'N' 
+			ORDER BY CREATE_DATE DESC, POST_NO DESC) A
+		     )
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectListCount">
+		SELECT COUNT(*) COUNT
+		FROM CAMP_GRAM
+		WHERE STATUS = 'N'
+	</entry>
+	
+	<entry key="increaseCount">
+		UPDATE CAMP_GRAM
+		SET READ_COUNT = READ_COUNT + 1
+		WHERE POST_NO = ? 
+		  AND STATUS = 'N' 
+	</entry>
+	
+	
+	
+	<entry key="selectAttachment">
+		SELECT PHOTO_NO,
+		       ORIGIN_NAME,
+		       NEW_NAME,
+		       PATH
+		FROM ATTACHMENT
+		WHERE STATUS = 'N' AND BOARD_NO = 8
+		  AND POST_NO = ?
+	</entry>
+	
+	<entry key="selectBoardLike">
+		SELECT POST_NO,
+			   MEMBER_NO
+		FROM BOARD_LIKE
+		WHERE POST_NO = ? AND MEMBER_NO = ?
+	</entry>
+	
+	<entry key="insertCamStagram">
+		INSERT INTO CAMP_GRAM
+		(
+			BOARD_NO,
+			POST_NO,
+			POST_CONTENT,
+			MEMBER_NO
+		)
+		VALUES
+		(
+			8,
+			SEQ_STARNO.NEXTVAL,
+			?,
+			?
+		)
+	</entry>
+	
+	<entry key="insertAttachment">
+		INSERT INTO ATTACHMENT (PHOTO_NO, BOARD_NO, POST_NO, ORIGIN_NAME, NEW_NAME, PATH)
+		VALUES (SEQ_FNO.NEXTVAL, 8, SEQ_STARNO.CURRVAL, ?, ?, ?)
+	
+	</entry>
+	
+	<entry key="insertNewAttachment">
+		INSERT INTO ATTACHMENT (PHOTO_NO, BOARD_NO, POST_NO, ORIGIN_NAME, NEW_NAME, PATH)
+		VALUES (SEQ_FNO.NEXTVAL, 8, ?, ?, ?, ?)
+	
+	</entry>
+	
+	<entry key = "updateCamStagram">
+		UPDATE CAMP_GRAM
+		SET POST_CONTENT = ?
+		WHERE POST_NO = ?
+		  AND STATUS = 'N' 
+	</entry>
+	
+	<entry key = "updateAttachment">
+		UPDATE ATTACHMENT
+		SET ORIGIN_NAME = ? ,
+		    NEW_NAME = ? ,
+		    PATH = ? ,
+		    UPLOAD_DATE = SYSDATE
+		WHERE BOARD_NO = 8
+		  AND POST_NO = ? 
+	</entry>
+		
+	<entry key="updateDeleteAttachment">
+		UPDATE ATTACHMENT
+		SET STATUS = 'Y'
+		WHERE BOARD_NO = 8
+		  AND POST_NO = ?
+	</entry>
+	
+	<entry key="deleteCamStagram">
+		UPDATE CAMP_GRAM
+		SET STATUS = 'Y'
+		WHERE POST_NO = ?
+	</entry>
+	
+	<entry key="deleteAttachment">
+		UPDATE ATTACHMENT
+		SET STATUS = 'Y'
+		WHERE BOARD_NO = 8
+		  AND POST_NO = ?
+	</entry>
+	
+	
+	<entry key="insertBoardLike">
+		INSERT INTO BOARD_LIKE (POST_NO, MEMBER_NO)
+		VALUES (?, ?)
+	</entry>
+	
+	<entry key="deleteBoardLike">
+		DELETE BOARD_LIKE
+		WHERE POST_NO = ? AND MEMBER_NO = ?
+	</entry>
+	
+		<!-- 베스트 5고르기 -->
+	<entry key="selectBest">
+		<![CDATA[          
+    SELECT *
+    FROM(  SELECT 
+			PATH || NEW_NAME AS "TITLE_IMG",
+			C.POST_NO,
+			C.POST_CONTENT,
+			MEMBER_NIC,
+			CREATE_DATE,
+			C.READ_COUNT,
+	       (SELECT COUNT(*)
+	          FROM BOARD_LIKE
+	         WHERE POST_NO = C.POST_NO) AS "LIKE_COUNT",
+	       (SELECT COUNT(*)
+              FROM REPLY
+             WHERE BOARD_NO=8 AND POST_NO = C.POST_NO) AS "REPLY_COUNT"
+		FROM CAMP_GRAM C
+		JOIN ATTACHMENT A ON C.POST_NO = A.POST_NO
+		JOIN MEMBER M ON C.MEMBER_NO = M.MEMBER_NO
+		ORDER BY READ_COUNT DESC
+		)
+		WHERE ROWNUM <=5
+		          ]]>
+
+	</entry>
+	<entry key="selectCamStagram">
+		SELECT (SELECT PATH || NEW_NAME
+                  FROM ATTACHMENT
+               	 WHERE POST_NO = ? AND BOARD_NO = 8 AND STATUS = 'N') AS "TITLE_IMG" ,
+               POST_NO,
+		       POST_CONTENT,
+			   MEMBER_NO,
+		       MEMBER_NIC,
+		       CREATE_DATE,
+			   (SELECT COUNT(*)
+			      FROM BOARD_LIKE
+			     WHERE POST_NO = ?) AS "LIKE_COUNT",
+			   (SELECT COUNT(*)
+                  FROM REPLY
+                 WHERE BOARD_NO=8 AND POST_NO = ?) AS "REPLY_COUNT"
+		FROM CAMP_GRAM C
+		JOIN MEMBER M USING(MEMBER_NO)
+        JOIN ATTACHMENT USING(POST_NO)
+		WHERE POST_NO = ?
+		  AND M.STATUS = 'N' AND C.STATUS = 'N'
+	</entry>
+	
+	<entry key = "insertReply">
+      INSERT INTO REPLY(REPLY_NO,BOARD_NO ,REPLY_CONTENT, POST_NO, WRITER)
+      VALUES(SEQ_PLYNO.NEXTVAL, 8, ?, ?, ?)
+    </entry>
+   
+    <entry key = "selectReplyList">
+      SELECT REPLY_NO, REPLY_CONTENT, MEMBER_NIC, TO_CHAR(CREATE_DATE, 'YY/MM/DD HH:MI:SS')CREATE_DATE
+      FROM REPLY R
+      JOIN MEMBER ON (WRITER = MEMBER_NO)   
+      WHERE R.STATUS = 'N'
+        AND BOARD_NO = 8 AND POST_NO = ?
+      ORDER BY CREATE_DATE DESC , REPLY_NO DESC
+    </entry>
+
+
+</properties>
