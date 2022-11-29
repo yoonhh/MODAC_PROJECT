@@ -314,7 +314,7 @@
 			<%if(i != currentPage) {%>
 				<button  class="pageBtn" onclick="doPageClick(<%=i%>)"><%=i %></button>
 			<%} else {%>
-				<button class="pageBtn" disabled><%= i %></button>
+				<button class="pageBtn" disabled style="background-color: orange; color:white"><%= i %></button>
 			<%} %>
 		<% } %>
 			
