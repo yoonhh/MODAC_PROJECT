@@ -231,19 +231,19 @@ a{text-decoration: none;}
 				</ul>
 			</li>
 			<li class="dept1">
-				<a href="#">공지사항</a>
+				<a href="<%=contextPath %>/noticeList">공지사항</a>
 				<ul class="inner_menu">
 					<li class="dept2">
-						<a href="#">모닥불 소식</a>
+						<a href="<%=contextPath %>/noticeList">모닥불 소식</a>
 					</li>
 					<li class="dept2">
-						<a href="#">캠핑 팁</a>
+						<a href="<%=contextPath %>/campTipList">캠핑 팁</a>
 					</li>
 					<li class="dept2">
-						<a href="#">Q&A</a>
+						<a href="<%=contextPath %>/qaList">Q&A</a>
 					</li>
 					<li class="dept2">
-						<a href="#">FAQ</a>
+						<a href="<%=contextPath %>/faqList">FAQ</a>
 					</li>
 				</ul>
 			</li>
