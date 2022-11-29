@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="selectRecipeList">
+		SELECT * 
+		FROM (
+			SELECT ROWNUM RNUM, A.*
+			FROM (
+			SELECT (SELECT PATH || NEW_NAME
+                	  FROM ATTACHMENT
+               	 	 WHERE BOARD_NO=7 AND POST_NO = R.POST_NO AND STATUS = 'N') AS "TITLE_IMG",
+				   R.POST_NO,
+			       POST_TITLE,
+			       MEMBER_NIC,
+			       CREATE_DATE,
+			       TIME,
+			       DIFFICULTY,
+			       MAIN_INGRE
+			FROM RECIPE R
+			JOIN MEMBER M ON(R.MEMBER_NO = M.MEMBER_NO)
+			WHERE $ LIKE ? AND M.STATUS = 'N' AND R.STATUS = 'N'
+			ORDER BY CREATE_DATE DESC, POST_NO DESC) A
+		     )
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectListCount">
+		SELECT COUNT(*) COUNT
+		FROM RECIPE
+		WHERE STATUS = 'N'
+	</entry>
+	
+	<entry key="increaseCount">
+		UPDATE RECIPE
+		SET READ_COUNT = READ_COUNT + 1
+		WHERE POST_NO = ? 
+		  AND STATUS = 'N' 
+	</entry>
+	
+	<entry key="selectRecipe">
+		SELECT POST_NO,
+		       POST_TITLE,
+		       POST_CONTENT,
+		       MEMBER_NIC,
+		       CREATE_DATE,
+		       TIME,
+		       DIFFICULTY,
+		       MAIN_INGRE,
+		       SUB_INGRE,
+		       (SELECT PATH || NEW_NAME
+                	  FROM ATTACHMENT
+               	 WHERE BOARD_NO=7 AND POST_NO = ? AND STATUS = 'N') AS "TITLE_IMG"
+		FROM RECIPE R
+		JOIN MEMBER M USING(MEMBER_NO)
+        JOIN ATTACHMENT USING(POST_NO)
+		WHERE POST_NO = ?
+		  AND M.STATUS = 'N' AND R.STATUS = 'N'
+	</entry>
+	
+	
+	<entry key="selectAttachment">
+		SELECT PHOTO_NO,
+		       ORIGIN_NAME,
+		       NEW_NAME,
+		       PATH
+		FROM ATTACHMENT
+		WHERE STATUS = 'N' AND BOARD_NO = 7
+		  AND POST_NO = ?
+	</entry>
+	
+	<entry key="insertRecipe">
+		INSERT INTO RECIPE
+		(
+			BOARD_NO,
+			POST_NO,
+			POST_TITLE,
+			POST_CONTENT,
+			MEMBER_NO,
+			TIME,
+			DIFFICULTY,
+		    MAIN_INGRE,
+		    SUB_INGRE
+		)
+		VALUES
+		(
+			7,
+			SEQ_RECNO.NEXTVAL,
+			?,
+			?,
+			?,
+			?,
+			?,
+			?,
+			?
+		)
+	</entry>
+	
+	<entry key="insertAttachment">
+		INSERT INTO ATTACHMENT (PHOTO_NO, BOARD_NO, POST_NO, ORIGIN_NAME, NEW_NAME, PATH)
+		VALUES (SEQ_FNO.NEXTVAL, 7, SEQ_RECNO.CURRVAL, ?, ?, ?)
+	
+	</entry>
+	
+	<entry key="insertNewAttachment">
+		INSERT INTO ATTACHMENT (PHOTO_NO, BOARD_NO, POST_NO, ORIGIN_NAME, NEW_NAME, PATH)
+		VALUES (SEQ_FNO.NEXTVAL, 7, ?, ?, ?, ?)
+	
+	</entry>
+	
+	<entry key = "updateRecipe">
+		UPDATE RECIPE
+		SET POST_TITLE = ?,
+			POST_CONTENT = ?,
+			TIME = ?,
+			DIFFICULTY = ?,
+		    MAIN_INGRE = ?,
+		    SUB_INGRE = ?
+		WHERE POST_NO = ?
+		  AND STATUS = 'N' 
+	</entry>
+	
+	<entry key = "updateAttachment">
+		UPDATE ATTACHMENT
+		SET ORIGIN_NAME = ? ,
+		    NEW_NAME = ? ,
+		    PATH = ? ,
+		    UPLOAD_DATE = SYSDATE
+		WHERE BOARD_NO = 7
+		  AND POST_NO = ? 
+	</entry>
+		
+	<entry key="updateDeleteAttachment">
+		UPDATE ATTACHMENT
+		SET STATUS = 'Y'
+		WHERE BOARD_NO = 7
+		  AND POST_NO = ?
+	</entry>
+	
+	<entry key="deleteRecipe">
+		UPDATE RECIPE
+		SET STATUS = 'Y'
+		WHERE POST_NO = ?
+	</entry>
+	
+	<entry key="deleteAttachment">
+		UPDATE ATTACHMENT
+		SET STATUS = 'Y'
+		WHERE BOARD_NO = 7
+		  AND POST_NO = ?
+	</entry>
+	
+	<entry key = "insertReply">
+      INSERT INTO REPLY(REPLY_NO,BOARD_NO ,REPLY_CONTENT, POST_NO, WRITER)
+      VALUES(SEQ_PLYNO.NEXTVAL, 7, ?, ?, ?)
+    </entry>
+   
+    <entry key = "selectReplyList">
+      SELECT REPLY_NO, REPLY_CONTENT, MEMBER_NIC, TO_CHAR(CREATE_DATE, 'YY/MM/DD HH:MI:SS')CREATE_DATE
+      FROM REPLY R
+      JOIN MEMBER ON (WRITER = MEMBER_NO)   
+      WHERE R.STATUS = 'N'
+        AND BOARD_NO = 7 AND POST_NO = ?
+      ORDER BY CREATE_DATE DESC , REPLY_NO DESC
+    </entry>
+	
+	
+	
+	
+	
+
+</properties>
