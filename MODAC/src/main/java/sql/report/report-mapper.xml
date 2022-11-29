@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<entry key="insertReport">
+	INSERT INTO "REPORT"
+			(REPORT_NO, POST_NO, REPORT_TITLE, REPORT_CONTENT, SENDER_NO, BOARD_NO) 
+VALUES (SEQ_REPNO.NEXTVAL, ? ,? ,? ,?, 9)
+</entry>
+
+<entry key="countReport">
+SELECT COUNT(POST_NO)
+FROM REPORT
+WHERE POST_NO = ?
+</entry>
+
+</properties>
