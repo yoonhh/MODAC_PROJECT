@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd"> 
+<properties>
+	<entry key="selectNoticeTipList">
+		SELECT * 
+			FROM (
+					SELECT ROWNUM RNUM, A.*
+					FROM (SELECT 
+	            			POST_NO,
+	            			POST_TITLE,
+	            			POST_CONTENT,
+	            			URL,
+	            			CREATE_DATE
+                		  FROM NOTICE_TIP T 
+					JOIN MEMBER M ON (MEMBER_NIC = WRITER)
+					WHERE M.STATUS = 'N' AND T.STATUS = 'N' AND M.MEMBER_LEVEL = 10 AND $ LIKE ?
+            		ORDER BY CREATE_DATE DESC, POST_NO DESC) A
+		     )
+			WHERE RNUM BETWEEN ? AND ?
+	</entry>
+
+	<entry key="selectListCount">
+		SELECT COUNT(*) COUNT
+		FROM NOTICE_TIP
+		WHERE STATUS = 'N'
+	</entry>
+	
+	<entry key="selectNoticeTip">
+		SELECT 
+			POST_NO,
+			POST_TITLE,
+			POST_CONTENT,
+			URL
+		FROM NOTICE_TIP
+		WHERE POST_NO = ?
+	</entry>
+	
+	<entry key="selectAttachment">
+		SELECT PHOTO_NO,
+		       ORIGIN_NAME,
+		       NEW_NAME,
+		       PATH,
+		       FILE_LEVEL
+		FROM ATTACHMENT
+		WHERE BOARD_NO = 3
+		  AND POST_NO = ?
+		  AND STATUS = 'N'
+	</entry>
+	
+	<entry key="insertNoticeTip">
+		INSERT INTO NOTICE_TIP
+			(BOARD_NO,
+			 POST_NO,
+			 POST_TITLE,
+			 POST_CONTENT,
+			 WRITER,
+			 URL
+			)
+		VALUES	
+			(3,
+			 SEQ_TIPNO.NEXTVAL,
+			 ?,
+			 ?,
+			 ?,
+			 ?)
+			
+	</entry>
+
+	<entry key="insertAttachment">
+		INSERT INTO ATTACHMENT (
+					PHOTO_NO, 
+					BOARD_NO, 
+					POST_NO, 
+					ORIGIN_NAME, 
+					NEW_NAME, 
+					PATH,
+					FILE_LEVEL)
+			VALUES 
+					(SEQ_FNO.NEXTVAL, 
+					3, 
+					SEQ_TIPNO.CURRVAL, 
+					?, 
+					?, 
+					?,
+					1)
+	</entry>
+	
+	<entry key="updateNoticeTip">
+		UPDATE NOTICE_TIP
+		SET POST_TITLE = ?,
+			POST_CONTENT = ?,
+			URL = ?
+		WHERE POST_NO = ?
+			AND STATUS = 'N'
+	</entry>
+	
+	
+	<entry key="updateAttachment">
+		UPDATE ATTACHMENT
+      	SET ORIGIN_NAME = ?,
+        	NEW_NAME = ?,
+         	PATH = ?,
+         	UPLOAD_DATE = SYSDATE,
+         	FILE_LEVEL = 1
+      	WHERE PHOTO_NO = ? 
+	</entry>
+	
+	
+	<entry key="deleteNoticeTip">
+		UPDATE NOTICE_TIP
+		SET STATUS = 'Y'
+		WHERE POST_NO = ?
+	</entry>
+</properties>
