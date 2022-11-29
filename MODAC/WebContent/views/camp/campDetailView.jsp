@@ -77,7 +77,7 @@
 
 	#btnback {
 		margin-top: 40px;
-		background-color: gray;
+		background-color: #BDBDBD;
         color: white;
         border: none;
 		width: 100px;
@@ -106,6 +106,8 @@
 <body>
 
 	<%@ include file = "../common/menubar.jsp" %>
+
+	<br> <br>
 
 	<div style="margin-bottom: 50px; margin: auto; width: 1200px; padding-bottom: 50px;">
 		<div class="total-area">
