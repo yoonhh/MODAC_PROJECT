@@ -44,7 +44,7 @@
 		    white-space: nowrap;
 		    overflow: hidden;
 		    text-overflow: ellipsis;
-			border: 1px solid;
+			border: 1px solid white;
 		
 		    /* 여러 줄 자르기 추가 스타일 */
 		    white-space: normal;
