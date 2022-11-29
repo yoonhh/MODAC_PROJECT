@@ -251,16 +251,16 @@ a{text-decoration: none;}
 				<a href="#">모닥불 이야기</a>
 				<ul class="inner_menu">
 					<li class="dept2">
-						<a href="#">캠핑장 리뷰</a>
+						<a href="<%=contextPath %>/list.cr">캠핑장 리뷰</a>
 					</li>
 					<li class="dept2">
-						<a href="#">레시피 자랑</a>
+						<a href="<%=contextPath %>/list.r">레시피 자랑</a>
 					</li>
 					<li class="dept2">
-						<a href="#">사진스타그램</a>
+						<a href="<%=contextPath %>/list.cs">사진스타그램</a>
 					</li>
 					<li class="dept2">
-						<a href="#">&nbsp;</a>
+						<a href="">&nbsp;</a>
 					</li>
 				</ul>
 			</li>
