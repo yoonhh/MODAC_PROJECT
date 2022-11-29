@@ -22,9 +22,23 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
+
 <style>
 
-    .menu {
+@import url('https://fonts.googleapis.com/css2?family=Hahmlet&family=Poor+Story&family=Do+Hyeon&display=swap');
+
+/* html{font-size: 10px} */
+/* body{font-size: 1.6rem} */
+/* *{margin: 0;padding: 0;} */
+ul li,
+ol li{list-style: none;}
+a{text-decoration: none;}
+
+
+
+
+
+.menu {
         margin-right: 20px;
         margin-top: 15px;
     }
@@ -78,100 +92,62 @@
 
 
 
-    #image{
+
+	#image{
         text-align: center;
     }
 
 
-    #mainMenu, #subMenu1, #subMenu2{
-        margin: 0;
-        padding: 0;
-        list-style-type: none;
-    }
 
-    #mainMenu > li {
-        display: inline-block;
-        /* float: left; */
-        /* border: 1px solid red; */
-        /* 임시 */
-    }
-    #mainMenu > li > a {
-        display: block;
-        padding: 8px 16px;
-        text-align: center;
-    }
-    #mainMenu > li > a {
-        font-size: medium;
-        font-weight: 600;
-        color: rgb(74,57,51);
-        text-align: center;
-        /* text-decoration: none; */
-        letter-spacing: 0.05em;
-        display: block;
-        padding: 12px 36px;
-    }
-    #subMenu1, #subMenu2 {
-        position: absolute;
-        background-color: white;
-        opacity: 0;
-        visibility: hidden;
-        border: 3px solid rgb(240,165,0);
-        
-    }
-    #subMenu1>li{
-        padding: 11px 28px;
-        border-bottom: 1px solid lightgray;
-        text-align: center;
-    }
-    
-    #subMenu2>li{
-        padding: 11px 42px;
-        border-bottom: 1px solid lightgray;
-        text-align: center;
-    }
-    #subMenu1>li>a, #subMenu2>li>a {
-        color: rgb(74,57,51);
-        font-weight: medium;
-        text-decoration: none;
-    }
-    #mainMenu>li>a:hover {
-        color: rgb(240,165,0);
-        
-    }
-    #mainMenu>li:hover #subMenu1 {
-        opacity: 1;
-        visibility: visible;
-    }
-    #mainMenu>li:hover #subMenu2 {
-        opacity: 1;
-        visibility: visible;
-    }
-    #nav-area {
-        border-top: 3px solid rgb(240,165,0);
-        border-bottom: 3px solid rgb(240,165,0);
-    }
-    #mainMenu>li:hover #icon {
-        opacity: 1;
-        visibility: visible;
-    }
 
-    #subMenu1>li>a:hover {
-        color: rgb(240,165,0);
-        font-weight: bold;
-    }
-    #subMenu2>li>a:hover {
-        color: rgb(240,165,0);
-        font-weight: bold;
-    }
-   
-   
 
-  
+#header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-top: 15px;
+	position: relative; 
+	background-color: rgb(240,165,0);
+	color: white;
+	font-family: 'Do Hyeon', sans-serif;
+	font-size: large;
+}
+#header #gnb{display: flex;z-index: 99;margin-left: auto;}
+#header #gnb > .dept1 {position: relative; padding: 10px 40px 10px 40px;text-align: center;}
+#header #gnb > .dept1 > a {color: white; font-size: larger;}
+#header #gnb > .dept1 > a.active{color: white;}
+
+#header #gnb .inner_menu {position: absolute;top: 100%;left:50%;transform: translateX(-60%);width:100%;padding-top:30px;display: none}
+#header #gnb  .dept2 {padding: 0 0;color: #555; margin-bottom: 10px;}
+#header #gnb  .dept2 > a {color: black; font-size: larger;}
+#header #gnb  .dept2 > a:hover,
+#header #gnb  .dept2 > a:active,
+#header #gnb  .dept2 > a:focus {color: rgb(240,165,0); text-decoration: none;}
+
+#header .menu_bar {margin-left: auto;z-index: 9999;position: relative;}
+#header .menu_bar.active span:nth-child(1){display: none}
+#header .menu_bar.active span:nth-child(2){transform:rotate(130deg)}
+#header .menu_bar.active span:nth-child(3){transform: rotate(45deg);top: 0px;position: absolute}
+#header .menu_bar span{width: 22px;height: 2px;background: #555;display: block;margin: 6px}
+.menu_open{position: fixed;width: 100%;height: 100vh;background: #fff;top: 0;left: 0;z-index: 999;padding: 3px;display: none}
+.menu_open > ul{display: flex;}
+.menu_open > ul li{width: 20%;}
+
+.hd_bg{background: #fff;width: 100%;height: 0;left: 0;z-index: 1;position: absolute;}
+
+.visual{background:#ccd1f1;width: 100%;height: 100vh;}
+
+
+
+
 </style>
+
+
 </head>
 
 
 <body>
+
 
 	<script>
 		
@@ -185,18 +161,19 @@
 		
 	
 	</script>
-	
 
-    <div id="top-menu" class="menu">
+
+
+	<div id="top-menu" class="menu">
 		<% if(loginMember == null) { %>
 
-            <nav id="mini" >
-                <ul id="miniCon">
-                    <li><a href="<%=contextPath %>/MemberloginForm.me">로그인</a></li>
-                    <li><a href="<%=contextPath %>/enrollFrom.me">회원가입</a></li>
-                    <li><a href="<%=contextPath%>/MemberFineIdPwd.me">아이디·비밀번호 찾기</a></li>
-                </ul>
-            </nav>
+			<nav id="mini" >
+				<ul id="miniCon">
+					<li><a href="<%=contextPath %>/MemberloginForm.me">로그인</a></li>
+					<li><a href="<%=contextPath %>/enrollFrom.me">회원가입</a></li>
+					<li><a href="<%=contextPath%>/MemberFineIdPwd.me">아이디·비밀번호 찾기</a></li>
+				</ul>
+			</nav>
 		
 		<% } else { %>
 			<!-- 로그인 성공 후 -->
@@ -204,24 +181,25 @@
 			<div id="member-info" class="menu">
 				<b><%=loginMember.getMemberNic() %></b> 님 환영합니다! :)<br>
 				<div style="margin-top: 5px;">
-                    <a href="<%=contextPath%>/logout.me">로그아웃</a>
-                    <a href="">마이페이지</a>
+					<a href="<%=contextPath%>/logout.me">로그아웃</a>
+					<a href="">마이페이지</a>
 				</div>
-                <br clear="both">
+				<br clear="both">
 			</div>
-            <br clear="both">
+			<br clear="both">
 
 
 		<% } %>
-	
-	
-    </div>  
 
 
-    <br clear="both">
-    <br> 
+	</div>  
 
-    <div id="image">
+
+	<br clear="both">
+	<br>
+
+
+	<div id="image">
         <a href="<%=contextPath%>">
             <img src="<%=contextPath %>/resources/최종로고_1.png" width="300px" alt="정상적 출력 실패" >
         </a>
@@ -231,47 +209,154 @@
     <br>
 
 
-    
-    <div id="nav-area" align="center">
-        <ul id="mainMenu">
-            <li><a href="<%=contextPath %>/list.ca">캠핑장 검색</a></li>
-            <li><a href="">공지사항</a>
-                <ul id="subMenu1">
-                    <li><a href="">모닥불 소식</a></li>
-                    <li><a href="">캠핑 팁</a></li>
-                    <li><a href="">Q&A</a></li>
-                    <li><a href="">FAQ</a></li>
-                </ul>
-            </li>
-            <li><a href="">모닥불 이야기</a>
-                <ul id="subMenu2">
-                    <li><a href="">캠핑장 리뷰</a></li>
-                    <li><a href="">레시피 자랑</a></li>
-                    <li><a href="">사진스타그램</a></li>
-                </ul>
-            </li>
-            <li><a href="">중고장터</a></li>
-            <li><a href="">동아리 모집</a></li>
-            <li><a id="icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-circle" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
-              </svg></a>
-            </li>
-              <br clear="both"> 
-        </ul>
-    </div>
-    
+	<!--header-->
+	<div id="header">
+		
+		<ul id="gnb">
+			<li class="dept1">
+				<a href="<%=contextPath %>/list.ca">캠핑장 검색</a>
+				<ul class="inner_menu">
+					<li class="dept2">
+						<a href="#">&nbsp;</a>
+					</li>
+					<li class="dept2">
+						<a href="#">&nbsp;</a>
+					</li>
+					<li class="dept2">
+						<a href="#">&nbsp;</a>
+					</li>
+					<li class="dept2">
+						<a href="#">&nbsp;</a>
+					</li>
+				</ul>
+			</li>
+			<li class="dept1">
+				<a href="#">공지사항</a>
+				<ul class="inner_menu">
+					<li class="dept2">
+						<a href="#">모닥불 소식</a>
+					</li>
+					<li class="dept2">
+						<a href="#">캠핑 팁</a>
+					</li>
+					<li class="dept2">
+						<a href="#">Q&A</a>
+					</li>
+					<li class="dept2">
+						<a href="#">FAQ</a>
+					</li>
+				</ul>
+			</li>
+			<li class="dept1">
+				<a href="#">모닥불 이야기</a>
+				<ul class="inner_menu">
+					<li class="dept2">
+						<a href="#">캠핑장 리뷰</a>
+					</li>
+					<li class="dept2">
+						<a href="#">레시피 자랑</a>
+					</li>
+					<li class="dept2">
+						<a href="#">사진스타그램</a>
+					</li>
+					<li class="dept2">
+						<a href="#">&nbsp;</a>
+					</li>
+				</ul>
+			</li>
+			<li class="dept1">
+				<a href="#">중고장터</a>
+				<ul class="inner_menu">
+					<li class="dept2">
+						<a href="#">&nbsp;</a>
+					</li>
+					<li class="dept2">
+						<a href="#">&nbsp;</a>
+					</li>
+					<li class="dept2">
+						<a href="#">&nbsp;</a>
+					</li>
+					<li class="dept2">
+						<a href="#">&nbsp;</a>
+					</li>
+				</ul>
+			</li>
+			<li class="dept1">
+				<a href="#">동아리 모집</a>
+				<ul class="inner_menu">
+					<li class="dept2">
+						<a href="#">&nbsp;</a>
+					</li>
+					<li class="dept2">
+						<a href="#">&nbsp;</a>
+					</li>
+					<li class="dept2">
+						<a href="#">&nbsp;</a>
+					</li>
+					<li class="dept2">
+						<a href="#">&nbsp;</a>
+					</li>
+				</ul>
+			</li>
+		</ul>
+
+		<a href="#" class="menu_bar" style="visibility: hidden;">
+			<span></span>
+			<span></span>
+			<span></span>
+		</a>
+
+
+		<div class="hd_bg"></div>
+
+	</div>
+	<!--//header-->
+
+	
+
+
 
     <script>
 
-        $(document).ready(function() {
-            $("#icon").on("mouseover", function() {
-                $("#subMenu1").css({"visibility":"visible", "opacity": "1"});
-                $("#subMenu2").css({"visibility":"visible", "opacity": "1"});
-            })
-        });
-        
-    </script>
+		$(document).ready(function() {
+			var gnb = $('#gnb');
 
+			// 마우스 over 시
+			gnb.mouseenter(function() {
+				$('.inner_menu').show();
+				// menu bg
+				var menuHeight = $('#header').outerHeight();
+				var inmeHegiht = $('.inner_menu').outerHeight();
+				$('.hd_bg').css({
+					'top': menuHeight + 'px',
+					height: inmeHegiht + 'px'
+				});
+			});
+
+			// 마우스  leave 시
+			gnb.mouseleave(function() {
+				$('.inner_menu').hide();
+				$('.hd_bg').css('height', '0')
+
+			});
+
+			//dept2 hover시 dept1 active
+			$('.dept1').mouseenter(function() {
+				$(this).children().addClass('active');
+				$(this).siblings().children().removeClass('active')
+			});
+			$('.dept1').mouseleave(function() {
+				$(this).children().removeClass('active');
+			});
+			
+			/* 햄버거 메뉴 */
+			$('.menu_bar').click(function(){
+				$(this).toggleClass('active');
+				$('.menu_open').slideToggle();
+			});
+		});
+
+    </script>
 
 
 </body>
