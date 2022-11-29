@@ -117,7 +117,7 @@
     })
   </script>
 <div class="container"></div>
-  <div style="text-align: center; margin: auto; padding-left: 5.5%;">
+  <div style="text-align: center; margin: auto;">
 		<div id="demo" class="carousel slide" data-ride="carousel" >
 
 			<div class="carousel-inner" style="width: 1500px; height: 500px; text-align: center;">
