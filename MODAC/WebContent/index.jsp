@@ -176,12 +176,21 @@
 	<br>
 
 	<div id="gall">
-		사진스타그램 top5 자리
+		
 	</div>
 
+<br clear="both">
 
 	<%@ include file="/views/common/footerbar.jsp" %>
 
-
 </body>
+<script>
+	$.ajax({
+		url : "<%=request.getContextPath()%>/best.be",
+		success : function (data) {
+			$("#gall").html(data);
+		}
+	})
+</script>
 </html>
+
