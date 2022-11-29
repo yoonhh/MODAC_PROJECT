@@ -217,7 +217,7 @@
         /*모달 창 뒤*/
         #modal.modal-overlay { 
             width: 100%;
-            height: 100%;
+            height: 300%;
             position: absolute;
             left: 0;
             top: 0;
@@ -247,7 +247,8 @@
 /*             position: relative; */
             top: -100px;
             padding: 10px;
-/*             margin-top: 160px;    */
+            
+            margin-top: 200px;    
         }
         /*모달 제목*/
         #modal .title {
