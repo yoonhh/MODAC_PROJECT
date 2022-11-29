@@ -27,8 +27,8 @@
     
     span {
         color: rgb(74,57,51);
-        font-size: large;
-        font-weight: bold;
+        font-size: 20px;
+        /* font-weight: bold; */
     }
 
 
@@ -65,12 +65,13 @@
     
 
     .them {
-        font-size: 16px;
-        font-weight: bold;
+        font-size: 19px;
+        /* font-weight: bold; */
         color: rgb(74,57,51);
         padding-right: 25px;
         border-right: 1px solid darkgray;
         border-spacing: 15px;
+        font-family: 'Do Hyeon', sans-serif;
     }
     #check td {
         padding-bottom: 15px;
@@ -87,6 +88,8 @@
         color: white;
         width: 300px;
         height: 40px;
+        font-family: 'Do Hyeon', sans-serif;
+        font-size: large;
     }
 
 
@@ -181,12 +184,12 @@
 
     <br> <br>
 
-    <h2 style="color: rgb(74,57,51);" align="center">캠핑장 검색</h2>
+    <h1 style="color: rgb(74,57,51); font-family: 'Do Hyeon', sans-serif;" align="center">캠핑장 검색</h1>
 
     <div id="search-area">
         <form name="searchForm" action="campSearch.ca">
             <div id="loacation-s">
-                <span>지역 검색</span>
+                <span style="font-family: 'Do Hyeon', sans-serif;">지역 검색</span>
                 <select name="loc1" id="loc1" onchange="changeLocation(this)">
                     <option value="z">전체/도/시</option>
                     <option value="a">강원도</option>
@@ -217,7 +220,7 @@
 
         
             <div id="facility-s">
-                <span>테마 및 편의 시설</span>
+                <span style="font-family: 'Do Hyeon', sans-serif;">테마 및 편의 시설</span>
                 <table id="check">
                     <tr>
                     <td class="them">자연경관</td>
