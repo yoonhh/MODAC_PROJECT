@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="selectCampRevieList">
+		SELECT * 
+		FROM (
+			SELECT ROWNUM RNUM, A.*
+			FROM (SELECT POST_NO,
+				         POST_TITLE,
+			             MEMBER_NIC,
+				         CREATE_DATE,
+				         READ_COUNT
+			    	FROM CAMP_REVIEW C
+		    		JOIN MEMBER M USING(MEMBER_NO)
+		    		WHERE $ LIKE ? AND M.STATUS = 'N' AND C.STATUS = 'N' 
+		    		ORDER BY CREATE_DATE DESC, POST_NO DESC) A
+		     )
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectListCount">
+		SELECT COUNT(*) COUNT
+		FROM CAMP_REVIEW
+		WHERE STATUS = 'N'
+	</entry>
+	
+	<entry key="increaseCount">
+		UPDATE CAMP_REVIEW
+		SET READ_COUNT = READ_COUNT + 1
+		WHERE POST_NO = ? 
+		  AND STATUS = 'N' 
+	</entry>
+	
+	<entry key="selectCampReview">
+        SELECT C.POST_NO,
+			   POST_TITLE,
+		       POST_CONTENT,
+		       MEMBER_NIC,
+		       CREATE_DATE,
+		       (SELECT PATH || NEW_NAME
+                  FROM ATTACHMENT
+                 WHERE POST_NO = ? AND STATUS = 'N') AS "TITLE_IMG"
+		FROM CAMP_REVIEW C
+		JOIN MEMBER M USING(MEMBER_NO)
+	    LEFT JOIN ATTACHMENT A on C.POST_NO = A.POST_NO 
+		WHERE C.POST_NO = ?
+		  AND M.STATUS = 'N' AND C.STATUS = 'N'
+	</entry>
+	
+	<entry key="selectReviewTag">
+		SELECT POST_NO, LISTAGG(TAG_NO,',') WITHIN GROUP(ORDER BY POST_NO) AS TAG_NO
+        FROM REVIEW_TAG
+        WHERE POST_NO=?
+        GROUP BY POST_NO
+	</entry>
+	             
+	<entry key="selectAttachment">
+		SELECT PHOTO_NO,
+		       ORIGIN_NAME,
+		       NEW_NAME,
+		       PATH
+		FROM ATTACHMENT
+		WHERE STATUS = 'N' AND BOARD_NO = 6
+		  AND POST_NO = ?
+	</entry>
+	
+	<entry key="insertCampReview">
+		INSERT INTO CAMP_REVIEW
+		(
+			BOARD_NO,
+			POST_NO,
+			POST_TITLE,
+			POST_CONTENT,
+			MEMBER_NO
+		)
+		VALUES
+		(
+			6,
+			?,
+			?,
+			?,
+			?
+		)
+	</entry>
+	
+	<entry key="insertTag">
+		INSERT INTO REVIEW_TAG (POST_NO, TAG_NO)
+		VALUES (?, ?)
+	</entry>
+	
+	<entry key="insertNewTag">
+		INSERT INTO REVIEW_TAG (POST_NO, TAG_NO)
+		VALUES (?, ?)
+	</entry>
+	
+	<entry key="insertAttachment">
+		INSERT INTO ATTACHMENT (PHOTO_NO, BOARD_NO, POST_NO, ORIGIN_NAME, NEW_NAME, PATH)
+		VALUES (SEQ_FNO.NEXTVAL, 6, ?, ?, ?, ?)
+	</entry>
+	
+	<entry key="insertNewAttachment">
+		INSERT INTO ATTACHMENT (PHOTO_NO, BOARD_NO, POST_NO, ORIGIN_NAME, NEW_NAME, PATH)
+		VALUES (SEQ_FNO.NEXTVAL, 6, ?, ?, ?, ?)
+	
+	</entry>
+	
+	<entry key = "updateCampReview">
+		UPDATE CAMP_REVIEW
+		SET POST_TITLE = ?,
+			POST_CONTENT = ?
+		WHERE POST_NO = ?
+		  AND STATUS = 'N' 
+	</entry>
+	
+	<entry key = "updateAttachment">
+		UPDATE ATTACHMENT
+		SET ORIGIN_NAME = ? ,
+		    NEW_NAME = ? ,
+		    PATH = ? ,
+		    UPLOAD_DATE = SYSDATE
+		WHERE BOARD_NO = 6
+		  AND POST_NO = ? 
+	</entry>
+	
+	<entry key="updateDeleteAttachment">
+		UPDATE ATTACHMENT
+		SET STATUS = 'Y'
+		WHERE BOARD_NO = 6
+		  AND POST_NO = ?
+	</entry>
+	
+	<entry key="deleteTag">
+		DELETE FROM REVIEW_TAG
+		WHERE POST_NO = ?
+	</entry>
+	
+	<entry key="deleteCampReview">
+		UPDATE CAMP_REVIEW
+		SET STATUS = 'Y'
+		WHERE POST_NO = ?
+	</entry>
+	
+	<entry key="deleteAttachment">
+		UPDATE ATTACHMENT
+		SET STATUS = 'Y'
+		WHERE BOARD_NO = 6
+		  AND POST_NO = ?
+	</entry>
+	
+	<entry key = "insertReply">
+      INSERT INTO REPLY(REPLY_NO,BOARD_NO ,REPLY_CONTENT, POST_NO, WRITER)
+      VALUES(SEQ_PLYNO.NEXTVAL, 6, ?, ?, ?)
+    </entry>
+   
+    <entry key = "selectReplyList">
+      SELECT REPLY_NO, REPLY_CONTENT, MEMBER_NIC, TO_CHAR(CREATE_DATE, 'YY/MM/DD HH:MI:SS')CREATE_DATE
+      FROM REPLY R
+      JOIN MEMBER ON (WRITER = MEMBER_NO)   
+      WHERE R.STATUS = 'N'
+        AND BOARD_NO = 6 AND POST_NO = ?
+      ORDER BY CREATE_DATE DESC , REPLY_NO DESC
+    </entry>
+	
+	
+	
+	
+
+</properties>
