@@ -20,7 +20,7 @@
 
         .content1{
           width: 20%;
-		  height: 1000px;
+		  height: 1200px;
 	      padding: 50px 20px 10px;
 	      background-color: antiquewhite;
 	      float: left; 
