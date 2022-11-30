@@ -27,7 +27,7 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Poor+Story&display=swap');
     #content{
-        border: 1px solid white;
+        border: 1px solid skyblue;
         box-sizing: border-box;
         width: 1200px;
         margin: auto;
@@ -40,34 +40,32 @@
         margin-left: 360px;
         border: white;
         width: 100px;
+        margin-left: 400px;
     }
     .search{
-        border: 1px solid white;
+        border: 1px solid;
         box-sizing: border-box;
         width: 800px;
-        height: 100px;
+        color: white;
         text-align: center;
         display: inline-block;
         margin-left: 200px;
         padding-left : 120px;
     }
-     #check{
-        width: 550px;
-        border : 1px solid white;
-        /*padding-left : 160px;*/
+    #check{
+        width: 450px;
+/*         border : 1px solid white; */
+        margin-left: 6%;
     }
-     .navbar{
-    	width: 700px;
-    	border : 1px solid white;
-    	margin-top : -5px;
-    	margin-right: -25px;
+    .navbar{
+    	width: 400px;
+    	margin: auto;
+/*     	margin-top : -5px; */
+/*     	margin-right: -25px; */
     }
     .form-select{
     	height: 38px;
-    }
-    .sort{
-    	margin-top: 10px;
-        font-size: 13px;
+    	margin-top: 0.6%; 
     }
     option{
         font-size: 13px;
@@ -98,10 +96,10 @@
     #enrollBtn{
         float: right;
         background-color: orange;
-        border: orange;
+        border-color: orange;
         border-radius: 5%;
-        width: 100px;
-        margin-top: 4%;
+        width: 100;
+        margin-top: 1.8%;
         margin-right: 15px;
         border-radius: 10px 10px 10px 10px / 10px 10px 10px 10px;
         font-family: 'Do Hyeon', sans-serif;
@@ -109,7 +107,7 @@
     #enrollBtn:hover{
     	color: black;
     	background-color: gainsboro;
-    	border: gainsboro;
+    	border-color: gainsboro;
     }
     .sale{
     	font-size: 13px;
@@ -138,16 +136,17 @@
     }
     .nic{
         color: rgb(128, 59, 30);
-        font-size: 13px;
+        font-size: 14px;
+        font-weight: bolder;
     }
     div[id=check]{
         float: left;
     }
-    select{
-        width: 70px;
-        margin-top: 0.6%;
-        font-size: 0.8em;
+    .sort{
+    	margin-top: 13px;
+        font-size: 13px;
         height: 27px;
+        width: 70px;
         margin-left: -3%;
     }
     .moveBtn{
@@ -171,7 +170,6 @@
     	height: 30px;
     	color: white;
     	background-color: orange;
-    	border: orange;
     }
     .title{
     	text-align:center;
@@ -179,13 +177,16 @@
         color: #4a3933;
         font-size: 45px;
     }
+    #saleView{
+    	margin: auto;
+    }
 </style>
 </head>
 <body>
 	<%@ include file="../common/menubar.jsp" %>
-
+	<br><br>
     <div id="content">
-		<br>
+		
         <h1 class="title">중고장터</h1>
         <br>
 		
@@ -205,24 +206,21 @@
                   <nav class="navbar">
                      <form class="container-fluid">
                          <div class="input-group">
-                            <select class="form-select" name ="f" aria-label="Default select example" style="width:6%;">
+                            <select class="form-select" name ="f" aria-label="Default select example" style="height: 39px; margin-top: -0.1%; width: 30px;">
                              	<option  ${(param.f == "POST_TITLE")? "selected":""} value="POST_TITLE">제목</option>
                              	<option  ${(param.f == "MEMBER_NIC")? "selected":""} value="POST_CONTENT">내용</option>
                             </select>
-                         	<input type="text" name ="q" class="form-control" placeholder="검색어를 입력하세요" aria-label="Username" aria-describedby="basic-addon1" style="width: 60%;" value="${param.q}">
+                         	<input type="text" name ="q" class="form-control" placeholder="검색어를 입력하세요" 
+                         		aria-label="Username" aria-describedby="basic-addon1" value="${param.q}"
+                         		style="width: 52%;">
                          	<input type="submit" class="input-group-text" id="basic-addon1" value="검색">
+                           
                         </div>
                        </form><br>
                		</nav>
                 </div>
                 
-                <!-- 게시글 정렬: 새로운 페이지 불러오기 방식 -->
-	    		<form action="list.mk">  
-               		<select class="sort" name="sort" id="sort" onchange="this.form.submit()">
-	                    <option name="sort" value="sortOfDate" id="sortOfDate"  ${(param.sort == "sortOfDate")? "selected":""} >최신순</option>
-	                    <option name="sort" value="sortOfCount" id="sortOfCount" ${(param.sort == "sortOfCount")? "selected":""}>조회순</option>
-	                </select>
-	            </form>    
+                
             </div>
                 
             <!--게시글 작성 버튼: 로그인 시 게시글 작성 버튼 표시 -->    
@@ -233,6 +231,13 @@
 					</svg>
                 </a>
             <% } %>
+            <!-- 게시글 정렬: 새로운 페이지 불러오기 방식 -->
+    		<form action="list.mk">  
+              	<select class="sort" name="sort" id="sort" onchange="this.form.submit()">
+                   <option name="sort" value="sortOfDate" id="sortOfDate"  ${(param.sort == "sortOfDate")? "selected":""} >최신순</option>
+                   <option name="sort" value="sortOfCount" id="sortOfCount" ${(param.sort == "sortOfCount")? "selected":""}>조회순</option>
+                </select>
+            </form> 
         </div>
        
        <!-- 게시글 목록조회 -->

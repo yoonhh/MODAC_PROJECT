@@ -38,6 +38,7 @@
         margin-left: 360px;
         border: white;
         width: 100px;
+        margin-left: 400px;
     }
     .search{
         border: 1px solid;
@@ -50,20 +51,19 @@
         padding-left : 120px;
     }
     #check{
-        width: 550px;
-        border : 1px solid white;
+        width: 450px;
+/*         border : 1px solid white; */
+        margin-left: 6%;
     }
     .navbar{
-    	width: 600px;
-    	margin-top : -5px;
-    	margin-right: -25px;
+    	width: 400px;
+    	margin: auto;
+/*     	margin-top : -5px; */
+/*     	margin-right: -25px; */
     }
     .form-select{
     	height: 38px;
-    }
-    .sort{
-    	margin-top: 10px;
-        font-size: 13px;
+    	margin-top: 0.6%; 
     }
     option{
         font-size: 13px;
@@ -97,7 +97,7 @@
         border-color: orange;
         border-radius: 5%;
         width: 100;
-        margin-top: 4%;
+        margin-top: 1.8%;
         margin-right: 15px;
         border-radius: 10px 10px 10px 10px / 10px 10px 10px 10px;
         font-family: 'Do Hyeon', sans-serif;
@@ -140,11 +140,11 @@
     div[id=check]{
         float: left;
     }
-    select{
-        width: 70px;
-        margin-top: 0.6%;
-        font-size: 0.8em;
+    .sort{
+    	margin-top: 13px;
+        font-size: 13px;
         height: 27px;
+        width: 70px;
         margin-left: -3%;
     }
     .moveBtn{
@@ -175,11 +175,14 @@
         color: #4a3933;
         font-size: 45px;
     }
+    #saleView{
+    	margin: auto;
+    }
 </style>
 </head>
 <body>
 	<%@ include file="../common/menubar.jsp" %>
-
+	<br><br>
     <div id="content">
 
         <h1 class="title">중고장터</h1>
@@ -197,24 +200,19 @@
                     <nav class="navbar">
                      <form class="container-fluid">
                          <div class="input-group">
-                            <select class="form-select" name ="f" aria-label="Default select example" style="width:10%;">
+                            <select class="form-select" name ="f" aria-label="Default select example" 
+                            style="height: 39px; margin-top: -0.1%; width: 30px;">
                              	<option  ${(param.f == "POST_TITLE")? "selected":""} value="POST_TITLE">제목</option>
                              	<option  ${(param.f == "MEMBER_NIC")? "selected":""} value="POST_CONTENT">내용</option>
                             </select>
-                         <input type="text" name ="q" class="form-control" placeholder="검색어를 입력하세요" aria-label="Username" aria-describedby="basic-addon1" style="width: 60%;" value="${param.q}">
+                         <input type="text" name ="q" class="form-control" placeholder="검색어를 입력하세요" 
+                         	aria-label="Username" aria-describedby="basic-addon1" style="width: 50%;" value="${param.q}">
                          <input type="submit" class="input-group-text" id="basic-addon1" value="검색">
                         </div>
                        </form>
-                     	<br>
+                       <br>
                		</nav>
                 </div>
-               
-	               <form action="saleView.mk">
-	               		<select class="sort" name="sort" id="sort" onchange="this.form.submit()">
-		                    <option name="sort" value="sortOfDate" id="sortOfDate" ${(param.sort == "sortOfDate")? "selected":""}>최신순</option>
-		                    <option name="sort" value="sortOfCount" id="sortOfCount" ${(param.sort == "sortOfCount")? "selected":""}>조회순</option>
-		                </select>
-	               </form>
             </div>    
             
             
@@ -225,6 +223,12 @@
 					</svg>
                 </a>
 			<% } %>
+			<form action="saleView.mk">
+             	<select class="sort" name="sort" id="sort" onchange="this.form.submit()">
+                   <option name="sort" value="sortOfDate" id="sortOfDate" ${(param.sort == "sortOfDate")? "selected":""}>최신순</option>
+                   <option name="sort" value="sortOfCount" id="sortOfCount" ${(param.sort == "sortOfCount")? "selected":""}>조회순</option>
+                </select>
+            </form>
             
         </div>
        
