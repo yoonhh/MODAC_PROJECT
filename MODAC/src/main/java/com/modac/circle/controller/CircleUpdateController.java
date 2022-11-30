@@ -99,7 +99,7 @@ public class CircleUpdateController extends HttpServlet {
 				response.sendRedirect(request.getContextPath() + "/cdetail.bo?bno=" + postNo);
 			} else {// 수정실패 => errorPage
 				request.setAttribute("errorMsg", "게시글 수정에 실패했습니다.");
-				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+				request.getRequestDispatcher("views/common/errorPage3.jsp").forward(request, response);
 			}
 
 		}

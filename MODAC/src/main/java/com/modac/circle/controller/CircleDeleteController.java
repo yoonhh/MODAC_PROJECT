@@ -42,7 +42,7 @@ public class CircleDeleteController extends HttpServlet {
 			
 		}else {
 			request.setAttribute("errorMsg", "게시글 삭제 실패");
-			request.getRequestDispatcher("view/common/errorPage.jsp").forward(request, response);
+			request.getRequestDispatcher("view/common/errorPage3.jsp").forward(request, response);
 			
 		}
 	}

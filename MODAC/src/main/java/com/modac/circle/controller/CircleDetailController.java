@@ -59,7 +59,7 @@ public class CircleDetailController extends HttpServlet {
 			
 		}else {//에러페이지
 			request.setAttribute("errorMsg", "게시글 상세조회 실패");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			request.getRequestDispatcher("views/common/errorPage3.jsp").forward(request, response);
 			
 		}
 	}

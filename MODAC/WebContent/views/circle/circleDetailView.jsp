@@ -278,7 +278,7 @@
 										+"<td>"+i.writer+"</td>"
 										+"<td>"+i.replyContent+"</td>"
 										+"<td>"+i.createDate+"</td>"
-										
+										+"<td><button onclick='repylDel("+i.replyNo+")'>삭제</button></td>"
 								  +"</tr>"
 								  
 							
@@ -293,7 +293,7 @@
 				
 			}  
 			
-			/* function replyDel() {
+			function repylDel(replyNo) {
 		       
 		        
 		        $.ajax({
@@ -301,7 +301,7 @@
 		            type : "post",
 		            data : {replyNo : replyNo},
 		            success : function(data) {
-		                   console.log("댓글이 삭제 되었습니다.");
+		                  alert("댓글이 삭제 되었습니다.");
 		                  location.reload();
 		            },
 		            error : function() {
@@ -309,7 +309,7 @@
 		            }
 		        })
 		    } 
-  */
+ 
 		
 		
 		
