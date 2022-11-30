@@ -69,6 +69,11 @@
             padding-bottom: 50px;
         }
     </style>
+    
+    <%@ include file="../common/menubar.jsp" %>
+    
+    <br> <br>
+    
   <form name="idsearch" method="post">
     <%
      if (fineId != null) {
