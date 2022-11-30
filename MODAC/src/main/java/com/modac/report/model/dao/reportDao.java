@@ -58,7 +58,7 @@ public class reportDao {
 		
 		PreparedStatement psmt = null;
 		
-		ResultSet rset = null;
+		
 		
 		String sql = prop.getProperty("countReport");
 		
@@ -66,16 +66,13 @@ public class reportDao {
 			psmt = conn.prepareStatement(sql);
 			
 			psmt.setString(1, postNo);
+			psmt.setString(2, postNo);
 			
-			rset = psmt.executeQuery();
+			count = psmt.executeUpdate();
 			
-			if(rset.next()) {
-				count = rset.getInt(1);
-			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			JDBCTemplate.close(rset);
 			JDBCTemplate.close(psmt);
 		} return count;
 	}

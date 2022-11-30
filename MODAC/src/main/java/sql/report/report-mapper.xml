@@ -8,9 +8,13 @@ VALUES (SEQ_REPNO.NEXTVAL, ? ,? ,? ,?, 9)
 </entry>
 
 <entry key="countReport">
+<![CDATA[    
+UPDATE USED_PRODUCT SET STATUS = 'Y'
+WHERE(
 SELECT COUNT(POST_NO)
 FROM REPORT
-WHERE POST_NO = ?
+WHERE POST_NO = ?) >=8 AND POST_NO=?
+]]>
 </entry>
 
 </properties>
