@@ -81,6 +81,9 @@ h2{
 </head>
 <body>
 <%@ include file="../common/menubar.jsp" %>
+	
+	<br> <br>
+	
 	<script>
 		let msg = "<%= alertMsg%>"; // let msg = 성공적으로 로그인이 되었습니다.
 		if(msg != "null"){
