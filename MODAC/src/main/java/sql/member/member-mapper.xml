@@ -71,5 +71,156 @@
 		WHERE EMAIL = ?
 	</entry>
 	
+	<!-- 마이페이지에서 회원정보 수정 -->
+<entry key="updateMember">
+	UPDATE MEMBER
+	SET MEMBER_NAME=?,
+		MEMBER_NIC=?,
+		EMAIL = ? ,	
+		MODI_DATE = SYSDATE
+	WHERE MEMBER_ID = ?
+	
+	</entry>
+	
+	<!--  마이페이지에서 비밀번호 변경 -->
+	<entry key = "updatePwdMember">
+		UPDATE MEMBER
+		SET MEMBER_PWD = ?,
+			MODI_DATE = SYSDATE
+		WHERE MEMBER_ID = ? AND MEMBER_PWD = ?
+	</entry>
+	
+	<!-- 마이페이지에서 회원탈퇴 -->
+	<entry key = "deleteMember">
+		UPDATE MEMBER
+		SET STATUS = 'N'
+			, MODI_DATE = SYSDATE
+			WHERE MEMBER_ID = ?
+			  AND MEMBER_PWD = ?
+	</entry>
+	
+	<!-- 자기글 - 동아리 게시판 -->
+	<entry key = "selectList">
+	SELECT *
+	FROM(
+	SELECT ROWNUM RNUM, A.*
+		FROM (
+		SELECT POST_NO,
+			   
+			   POST_TITLE,
+			   MEMBER_NIC,
+			   READ_COUNT,
+			   CREATE_DATE
+			
+	FROM CIRCLE C
+	
+	JOIN MEMBER  M USING (MEMBER_NO)
+	WHERE C.STATUS='N' AND M.STATUS='N' AND MEMBER_ID=?
+		ORDER BY CREATE_DATE ASC
+		)A
+		)
+		 WHERE RNUM BETWEEN ? AND ?
+</entry>
+
+
+<!-- 자기글 - 동아리 게시판 - 페이징 처리 -->
+<entry key = "selectListCount">
+	SELECT COUNT(*) READ_COUNT
+	FROM CIRCLE
+	WHERE STATUS = 'N'	
+</entry>
+
+<!-- 자기글 - 캠프리뷰 게시판 -->
+<entry key = "crselectList">
+	SELECT *
+	FROM(
+	SELECT ROWNUM RNUM, A.*
+		FROM (
+		SELECT POST_NO,
+			   
+			   POST_TITLE,
+			   MEMBER_NIC,
+			   READ_COUNT,
+			   CREATE_DATE
+			
+	FROM CAMP_REVIEW C
+	
+	JOIN MEMBER  M USING (MEMBER_NO)
+	WHERE C.STATUS='N' AND M.STATUS='N' AND MEMBER_ID=?
+		ORDER BY CREATE_DATE ASC
+		)A
+		)
+		 WHERE RNUM BETWEEN ? AND ?
+</entry>
+
+<!-- 자기글 - 캠프리뷰 게시판 - 페이징 처리 -->
+<entry key = "crselectListCount">
+	SELECT COUNT(*) READ_COUNT
+	FROM CAMP_REVIEW
+	WHERE STATUS = 'N'	
+</entry>
+
+<!-- 자기글 - 중고게시판 -->
+<entry key = "upselectList">
+	SELECT *
+	FROM(
+	SELECT ROWNUM RNUM, A.*
+		FROM (
+		SELECT POST_NO,
+			   
+			   POST_TITLE,
+			   MEMBER_NIC,
+			   READ_COUNT,
+			   CREATE_DATE
+			
+	FROM USED_PRODUCT U
+	
+	JOIN MEMBER  M USING (MEMBER_NO)
+	WHERE U.STATUS='N' AND M.STATUS='N' AND MEMBER_ID=?
+		ORDER BY CREATE_DATE ASC
+		)A
+		)
+		 WHERE RNUM BETWEEN ? AND ?
+</entry>
+
+<!-- 자기글 - 중고게시판 - 페이징 처리 -->
+<entry key = "upselectListCount">
+	SELECT COUNT(*) READ_COUNT
+	FROM USED_PRODUCT
+	WHERE STATUS = 'N'	
+</entry>
+
+<!-- 자기글 - 레시피 게시판 -->
+<entry key = "cpselectList">
+	SELECT *
+	FROM(
+	SELECT ROWNUM RNUM, A.*
+		FROM (
+		SELECT POST_NO,
+			   
+			   POST_TITLE,
+			   MEMBER_NIC,
+			   
+			   CREATE_DATE
+			
+	FROM RECIPE R
+	
+	JOIN MEMBER  M USING (MEMBER_NO)
+	WHERE R.STATUS='N' AND M.STATUS='N' AND MEMBER_ID=?
+		ORDER BY CREATE_DATE ASC
+		)A
+		)
+		 WHERE RNUM BETWEEN ? AND ?
+</entry>
+
+<!-- 자기글 - 레시피 게시판- 페이징 처리 -->
+<entry key = "cpselectListCount">
+	SELECT COUNT(*) READ_COUNT
+	FROM RECIPE
+	WHERE STATUS = 'N'	
+</entry>
+	
+	
+	
 	
 </properties>

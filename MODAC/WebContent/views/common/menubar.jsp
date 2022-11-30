@@ -183,7 +183,7 @@ a{text-decoration: none;}
 				<b><%=loginMember.getMemberNic() %></b> 님 환영합니다! :)<br>
 				<div style="margin-top: 5px;">
 					<a href="<%=contextPath%>/logout.me">로그아웃</a>
-					<a href="">마이페이지</a>
+					<a href="<%= contextPath%>/myPagePwd.me">마이페이지</a>
 				</div>
 				<br clear="both">
 			</div>
@@ -283,7 +283,7 @@ a{text-decoration: none;}
 				</ul>
 			</li>
 			<li class="dept1">
-				<a href="#">동아리 모집</a>
+				<a href="<%=contextPath%>/clist.bo">동아리 모집</a>
 				<ul class="inner_menu">
 					<li class="dept2">
 						<a href="#">&nbsp;</a>

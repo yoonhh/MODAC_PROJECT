@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+<!-- <entry key = "selectList">
+	
+	
+	
+		SELECT POST_NO,
+			   
+			   POST_TITLE,
+			   MEMBER_NO,
+			   READ_COUNT,
+			   CREATE_DATE
+		FROM CIRCLE C
+		
+		JOIN MEMBER M USING (MEMBER_NO)
+		WHERE  C.STATUS = 'N' AND M.STATUS ='N'
+		ORDER BY CREATE_DATE DESC
+		
+		
+		
+</entry> -->
+
+
+
+<entry key = "insertBoard">
+	INSERT INTO CIRCLE(BOARD_NO,POST_NO, POST_TITLE, POST_CONTENT, MEMBER_NO)
+	VALUES(10,SEQ_CIRNO.NEXTVAL, ?, ?, ?)
+
+</entry>
+
+<entry key="insertAttachment">
+	INSERT INTO ATTACHMENT(PHOTO_NO, BOARD_NO,POST_NO, ORIGIN_NAME, NEW_NAME, PATH, FILE_LEVEL)
+	VALUES(SEQ_FNO.NEXTVAL, 10, SEQ_CIRNO.CURRVAL ,?, ?, ?,?)
+</entry>
+
+<entry key="insertNewAttachment">
+	INSERT INTO ATTACHMENT(PHOTO_NO, BOARD_NO, POST_NO, ORIGIN_NAME, NEW_NAME, PATH)
+	VALUES(SEQ_FNO.NEXTVAL, 10,? ,?, ?, ?)
+</entry>
+<entry key = "increaseCount">
+	UPDATE CIRCLE
+	SET READ_COUNT = READ_COUNT +1
+	WHERE POST_NO = ?
+		AND STATUS ='N' 
+
+
+
+
+</entry>
+
+<entry key="updateAttachment">
+		UPDATE ATTACHMENT
+		SET ORIGIN_NAME = ?,
+			NEW_NAME = ?,
+			PATH = ?,
+			UPLOAD_DATE = SYSDATE
+		WHERE PHOTO_NO = ? 
+	</entry>
+
+ <entry key = "selectList">
+	SELECT *
+	FROM(
+	SELECT ROWNUM RNUM, A.*
+		FROM (
+		SELECT POST_NO,
+			   
+			   POST_TITLE,
+			   MEMBER_NIC,
+			   READ_COUNT,
+			   CREATE_DATE
+			
+	FROM CIRCLE C
+	
+	JOIN MEMBER  M USING (MEMBER_NO)
+	WHERE $ LIKE ? AND C.STATUS='N' AND M.STATUS='N' 
+		ORDER BY CREATE_DATE ASC
+		)A
+		)
+		 WHERE RNUM BETWEEN ? AND ?
+</entry>
+ 
+
+
+<entry key="updateBoard">
+
+	UPDATE CIRCLE
+	SET 
+		POST_TITLE = ?,
+		POST_CONTENT = ?
+	WHERE POST_NO = ?
+
+</entry>
+
+<entry key="deleteBoard">
+
+	UPDATE CIRCLE
+	SET STATUS = 'Y'
+	WHERE POST_NO = ?
+</entry>
+
+<entry key = "selectListCount">
+	SELECT COUNT(*) READ_COUNT
+	FROM CIRCLE
+	WHERE $ Like ? AND STATUS = 'N'	
+</entry>
+
+<entry key="selectBoard">
+	SELECT POST_NO,
+			
+			POST_TITLE,
+			POST_CONTENT,
+			CREATE_DATE,
+			MEMBER_NIC
+	FROM CIRCLE C
+	
+	JOIN MEMBER M USING (MEMBER_NO)
+	WHERE POST_NO =? AND C.STATUS='N'AND M.STATUS='N'
+
+</entry>
+
+<entry key="selectAttachment">
+	SELECT PHOTO_NO,
+			ORIGIN_NAME,
+			NEW_NAME,
+			PATH,
+			FILE_LEVEL
+	FROM ATTACHMENT
+	WHERE POST_NO = ? AND BOARD_NO=10
+	ORDER BY FILE_LEVEL
+</entry>
+<entry key = "insertReply">
+      INSERT INTO REPLY(REPLY_NO,BOARD_NO ,REPLY_CONTENT, POST_NO, WRITER)
+      VALUES(SEQ_PLYNO.NEXTVAL,10,?,?,?)
+   </entry>
+<entry key = "selectReplyList">
+		SELECT REPLY_NO, REPLY_CONTENT, MEMBER_NIC, TO_CHAR(CREATE_DATE, 'YY/MM/DD HH:MI:SS')CREATE_DATE
+		FROM REPLY R
+	JOIN MEMBER ON (WRITER= MEMBER_NO)
+		WHERE R.STATUS = 'N'
+			AND BOARD_NO=10 AND POST_NO = ?
+		ORDER BY CREATE_DATE DESC , REPLY_NO DESC
+		
+	
+	
+	</entry>
+	
+	<entry key ="deletereply">
+	 DELETE FROM REPLY WHERE REPLY_NO=?
+	
+	</entry>
+	
+	
+
+</properties>

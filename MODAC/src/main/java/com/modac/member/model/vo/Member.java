@@ -31,6 +31,18 @@ public class Member {
 		this.email = email;
 	}
 	
+	public Member(String memberId, String memberName, String memberNic,
+			 String email) {
+		super();
+		
+		this.memberId = memberId;
+		
+		this.memberName = memberName;
+		this.memberNic = memberNic;
+		this.email = email;
+		
+	}
+	
 	public Member(String memberName, String email) {
 		super();
 		this.memberName = memberName;
