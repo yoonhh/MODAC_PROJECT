@@ -99,7 +99,7 @@
 				<div class="card" >
 					<input type="hidden" name="csno" id="csno" value="<%=cs.getPostNo()%>">
 					<div class="image-box" style="width: 100%;">
-						<img src="<%=contextPath%>/<%=cs.getTitleImg()%>"
+						<img src="<%=contextPath%>/<%=cs.getTitleImg()%>"  onerror="this.src = '<%= contextPath %>/resources/modacLogo/logo.png'"
 						class="image-thumbnail" width="200px" height="150px">
 					</div>
 					<div class="card-b">
