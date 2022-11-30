@@ -235,7 +235,6 @@
 		
 		 $(function(){
 			selectReplyList();
-			
 			setInterval(selectReplyList, 10000);// 괄호 붙이면 메소드가 되어서 한번실행되고 안됨
 		}); 
 		
@@ -265,7 +264,6 @@
 			
 			 function selectReplyList(){
 				$.ajax({
-					
 					url:"crlist.bo",
 					data:{bno : ${c.postNo}},// 객체
 					success:(list)=>{

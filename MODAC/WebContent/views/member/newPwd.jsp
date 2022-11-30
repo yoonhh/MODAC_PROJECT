@@ -17,7 +17,7 @@
             border: 5px solid #F0A500;
             margin: auto;
             width: 600px;
-            height: 500px;
+            height: 650px;
         }
         .clicked{
             background-color: white;
@@ -107,6 +107,18 @@
         #hidden-value {
             display: none;
         }
+        #nwCheckPwd{
+        	margin-top: 30px;
+            font-size: 20px;
+        }
+        #equalPwd{
+            margin-bottom: 40px;
+            font-size: 20px;
+        }
+        #submit:hover{
+        	background-color: rgb(74, 57, 51);
+            cursor: pointer;
+        }
 
     </style>
     
@@ -144,51 +156,57 @@
                     
                     <div id="newPwd-content">
                         <div id="divUpdatePwd">
-                            <span>새 비밀번호</span><input name="updatePwd" id="updatePwd" type="password" placeholder="내용을 입력해주세요" required>
+                            <span>새 비밀번호</span>
+                            <input name="updatePwd" id="updatePwd" type="password" placeholder="내용을 입력해주세요" required>
+                        	<div id ="nwCheckPwd"></div>
                         </div>
                         <div id="divCheckPwd">
-                            <span>비밀번호 재입력</span><input name="checkPwd" id="checkPwd" type="password" placeholder="내용을 재입력해주세요" required>
+                            <span>비밀번호 재입력</span>
+                            <input name="checkPwd" id="checkPwd" type="password" placeholder="내용을 재입력해주세요" required>
                         </div>
                     </div>
                     <div id="btn-area">
-                        	<div class="alert alert-success" id="alert-success">비밀번호가 일치합니다.</div>
-							<div class="alert alert-danger" id="alert-danger">비밀번호가 일치하지 않습니다.</div>
                     </div>
-                        <input id="submit" type="submit" onclick="return validate();"disabled value="비밀번호 재설정">
+                    	<div id="equalPwd"></div>
+                        <input id="submit" type="submit" onclick="validate();"disabled value="비밀번호 재설정">
                 </form>
             </div>
 	    </div>
-<script>
-    $(function(){
-        $("#alert-success").hide();
-        $("#alert-danger").hide();
-        $("input").keyup(function(){
-            var pwd1=$("#updatePwd").val();
-            var pwd2=$("#checkPwd").val();
-            
-            if(pwd1 != "" || pwd2 != ""){
-                if(pwd1 == pwd2){
-                    $("#alert-success").show();
-                    $("#alert-danger").hide();
-                    $("#submit").removeAttr("disabled");
-                }else{
-                    $("#alert-success").hide();
-                    $("#alert-danger").show();
-                    $("#submit").attr("disabled", "disabled");
-                }    
-            }
+    <script>
+    $(function () {
+    	$("#updatePwd").keyup(function(){
+        	let pwd1=$("#updatePwd").val();
+        	let pwdCheck2 = /^(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{5,15}$/gi;
+        	
+	            if(!pwdCheck2.test(pwd1)){
+	                $("#nwCheckPwd").html('사용할 수 없는 비밀번호입니다.').css('color','red')
+	            }else{
+	                $("#nwCheckPwd").html('사용할 수 있는 비밀번호입니다.').css('color','green');
+	            }
+    	})
+	});    
+    </script>
+    
+        <script>
+    <!-- 비밀번호 같은지 체크 -->
+    $(function () {
+        $("#checkPwd").keyup(function(){
+            let pwd1=$("#updatePwd").val();
+            let pwd2=$("#checkPwd").val();	
+                if(pwd1 != "" || pwd2 !=""){
+                    if(pwd1 == pwd2){
+                        $("#equalPwd").html('비밀번호가 일치합니다.').css('color','green');
+                        $("#submit").removeAttr("disabled");
+                        
+                    }else{
+                        $("#equalPwd").html('비밀번호가 일치하지 않습니다.').css('color','red');
+                    }
+                }
         });
     });
-    function validate() {
-    let pwd1=$("#updatePwd").val();
-    let pwdCheck2 = /^[a-z\d!@#$%^&*]{5,15}$/;
-    if (!pwdCheck2.test(pwd1)) {
-      alert("비밀번호는 영문자+숫자+특수문자 조합으로 5~15자리 사용해야 합니다.");
-      return false;
-    	};
-    }
+    </script>
     
-</script>
+
 
 
     

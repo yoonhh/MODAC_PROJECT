@@ -124,8 +124,6 @@
             <input id="checkpassword" type="password" placeholder="비밀번호 확인" required>
             <div id="checkPwd"></div>
         </div>
-			<!-- <div class="alert alert-success" id="alert-success">비밀번호가 일치합니다.</div> -->
-			<!-- <div class="alert alert-danger" id="alert-danger">비밀번호가 일치하지 않습니다.</div> -->
 			
 		
         <div>
