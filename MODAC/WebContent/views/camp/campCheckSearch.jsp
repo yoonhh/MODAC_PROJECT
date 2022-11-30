@@ -7,11 +7,15 @@
 	String pet = (String) request.getAttribute("pet");
 	
     PageInfo pi = (PageInfo) request.getAttribute("pi");
-
-	String items ="";
-    	for( String a : item1){
-    		items += a +",";
-    	}
+	
+	if(item1 != null){
+	    for( int i =0 ; i<item1.length;i++){
+	    	if(item1[i].equals("개수대(취사장)")){
+	    		item1[i] = "[개수대(취사장)]";
+	    	}
+	    	items += item1[i] + (i != item1.length -1 ? "|":"");
+	    }
+	}
 
     int currentPage = pi.getCurrentPage();
     int startPage = pi.getStartPage();
@@ -85,6 +89,7 @@
     #check td {
         padding-bottom: 15px;
         padding-left: 25px;
+	    font-family: 'Do Hyeon', sans-serif;
     }
 
   
@@ -257,8 +262,8 @@
                     </tr>
                     <tr>
                         <td class="them">반려동물 동반</td>
-                        <td><input type="checkbox" class="pet" name="pet" id="pet-yes" value="가능" onclick="petCheck(this);"><label for="pet-yes"> 가능</label></td>
-                        <td><input type="checkbox" class="pet" name="pet" id="pet-no" value="불가능" onclick="petCheck(this);"><label for="pet-no"> 불가능</label></td>
+                        <td><input type="checkbox" class="pet" name="pet" id="pet-yes" value="가능" onclick="petCheck(this);" ${pet == '가능' ?"checked":""><label for="pet-yes"> 가능</label></td>
+                        <td><input type="checkbox" class="pet" name="pet" id="pet-no" value="불가능" onclick="petCheck(this);" ${pet == '불가능' ?"checked":""><label for="pet-no"> 불가능</label></td>
                     </tr>
                 </table>
                 
@@ -419,14 +424,16 @@
 	
 	// 체크 속성 남기기
         $(function() {
-            let item = "<%= items %>";
+            let item = /<%= items %>/;
 
-            $("input[type=checkbox]").each(function() {
-                if(item.search("["+$(this).val()+"]") != -1) {
+            $("input[type=checkbox][name=item1]").each(function() {
+                // if(item.search("["+$(this).val()+"]") != -1) {
+                //     $(this).attr("checked", true);
+                // }
+                if($(this).val().search(item) != -1){
                     $(this).attr("checked", true);
                 }
             });
-        });
 	
 
 	
