@@ -291,7 +291,7 @@
 			
 			<script>
 				function doPageClick(currentPage){
-					location.href = "<%=contextPath%>/noticeList?currentPage="+currentPage;
+					location.href = "<%=contextPath%>/qaList?currentPage="+currentPage;
 				}
 			</script>
 			

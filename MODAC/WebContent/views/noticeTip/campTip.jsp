@@ -23,13 +23,13 @@
 	url('https://fonts.googleapis.com/css2?family=Hahmlet&family=Poor+Story&family=Do+Hyeon&display=swap');
 
 	.content>div {
-		height: 1000px;
+		height: 1300px;
 		float: left;
 	}
 	
 	.content1 {
 		width: 20%;
-		height: 1000px;
+		height: 1300px;
 		padding: 50px 20px 10px;
 		background-color: antiquewhite;
 		float: left;
@@ -231,7 +231,7 @@
 			
 			<script>
 				function doPageClick(currentPage){
-					location.href = "<%=contextPath%>/noticeList?currentPage="+currentPage;
+					location.href = "<%=contextPath%>/campTipList?currentPage="+currentPage;
 				}
 			</script>
 		</div>

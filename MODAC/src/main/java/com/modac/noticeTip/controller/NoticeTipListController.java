@@ -58,7 +58,7 @@ public class NoticeTipListController extends HttpServlet {
 		listCount = new NoticeTipService().selectListCount();
 		currentPage = Integer.parseInt(request.getParameter("currentPage") == null ? "1" : request.getParameter("currentPage"));
 		pageLimit = 5;
-		boardLimit = 7;
+		boardLimit = 6;
 		maxPage = (int)Math.ceil((double)listCount / boardLimit);
 		startPage = (currentPage - 1) / pageLimit * pageLimit +1;
 		endPage = startPage + pageLimit -1;

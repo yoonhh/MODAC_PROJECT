@@ -109,7 +109,7 @@
                   <input type='checkbox' value="Y" name="hiddenPost" id='my_checkbox' onclick='toggleTextbox(this)'/> 비밀글
                 </label>
                 
-                <input type='text' id='my_text' name="postPwd" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" disabled />
+                <input type='password' id='my_text' name="postPwd" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" disabled />
                
 	          </div>
 	          
