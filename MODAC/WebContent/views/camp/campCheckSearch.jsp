@@ -1,8 +1,16 @@
+<%@page import="java.util.Arrays"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.ArrayList, com.modac.camp.model.vo.Camp, com.modac.common.model.vo.PageInfo"%>
 <%
 	ArrayList<Camp> clist = (ArrayList<Camp>) request.getAttribute("clist");
+	String [] item1 = (String []) request.getAttribute("item1");
+	
     PageInfo pi = (PageInfo) request.getAttribute("pi");
+
+	String items ="";
+    	for( String a : item1){
+    		items += a +",";
+    	}
 
     int currentPage = pi.getCurrentPage();
     int startPage = pi.getStartPage();
@@ -385,7 +393,7 @@
                 opt.innerHTML = d[x];
                 target.appendChild(opt);
             }
-        }
+        };
 
         
         // 반려동물 동반 하나만 체크
@@ -395,9 +403,22 @@
                 e.checked = false;
             })
             element.checked = true;
-        } 
+        }; 
+	
+	
+	
+	// 체크 속성 남기기
+        $(function() {
+            let item = "<%= items %>";
 
-
+            $("input[type=checkbox]").each(function() {
+                if(item.search("["+$(this).val()+"]") != -1) {
+                    $(this).attr("checked", true);
+                }
+            });
+        });
+	
+	
 
         // 세부페이지 이동
          $(function() {
