@@ -114,6 +114,8 @@
 <body>
 
     <%@ include file="../common/menubar.jsp" %>
+	
+	<br> <br>
 
     <script>
 		let msg = "<%=alertMsg%>";
