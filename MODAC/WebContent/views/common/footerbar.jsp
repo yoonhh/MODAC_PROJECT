@@ -29,10 +29,10 @@
         <footer class="d-flex flexwrap justify-content-between align-items-center py-3 my-4 border-top">
             <p class="col-md-4 mb-0 text-muted">© 2022. Miseon Impossible All Rights Reserved.</p>
             <ul class="nav col-md-4 justify-content-end">
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Notice</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Camp Search</a></li>
+                <li class="nav-item"><a href="<%=contextPath%>" class="nav-link px-2 text-muted">Home</a></li>
+                <li class="nav-item"><a href="<%=contextPath %>/noticeList" class="nav-link px-2 text-muted">Notice</a></li>
+                <li class="nav-item"><a href="<%=contextPath %>/faqList" class="nav-link px-2 text-muted">FAQs</a></li>
+                <li class="nav-item"><a href="<%=contextPath %>/list.ca" class="nav-link px-2 text-muted">Camp Search</a></li>
             </ul>
         </footer>
     </div>
