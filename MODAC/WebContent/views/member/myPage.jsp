@@ -126,7 +126,7 @@
         font-size: 30px; color:orange">개인정보 변경</a></li>
                   	<br><br><br><br>
                    <li>
-             		<a href="" class="nav-link" style="text-align: center;font-family: 'Do Hyeon', sans-serif;
+             		<a href="#" class="nav-link" style="text-align: center;font-family: 'Do Hyeon', sans-serif;
        
         font-size: 30px;">자기글 모음</a>
              		<ul>
