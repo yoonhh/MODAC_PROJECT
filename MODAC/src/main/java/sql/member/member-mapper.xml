@@ -201,7 +201,8 @@
 			   POST_TITLE,
 			   MEMBER_NIC,
 			   
-			   CREATE_DATE
+			   CREATE_DATE,
+			   READ_COUNT
 			
 	FROM RECIPE R
 	
