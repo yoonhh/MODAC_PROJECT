@@ -205,8 +205,11 @@ public class CheckFindController extends HttpServlet {
 			
 			request.setAttribute("clist", clist);
 			request.setAttribute("item1", item1);
+			request.setAttribute("pet", pet);
 			System.out.println(" ");
 			System.out.println(item1);
+			System.out.println();
+			System.out.println(pet);
 			
 			request.getRequestDispatcher("views/camp/campCheckSearch.jsp").forward(request, response);
 			

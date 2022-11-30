@@ -4,6 +4,7 @@
 <%
 	ArrayList<Camp> clist = (ArrayList<Camp>) request.getAttribute("clist");
 	String [] item1 = (String []) request.getAttribute("item1");
+	String pet = (String) request.getAttribute("pet");
 	
     PageInfo pi = (PageInfo) request.getAttribute("pi");
 
@@ -256,8 +257,8 @@
                     </tr>
                     <tr>
                         <td class="them">반려동물 동반</td>
-                        <td><input type="checkbox" name="pet" id="pet-yes" value="가능" onclick="petCheck(this);"><label for="pet-yes"> 가능</label></td>
-                        <td><input type="checkbox" name="pet" id="pet-no" value="불가능" onclick="petCheck(this);"><label for="pet-no"> 불가능</label></td>
+                        <td><input type="checkbox" class="pet" name="pet" id="pet-yes" value="가능" onclick="petCheck(this);"><label for="pet-yes"> 가능</label></td>
+                        <td><input type="checkbox" class="pet" name="pet" id="pet-no" value="불가능" onclick="petCheck(this);"><label for="pet-no"> 불가능</label></td>
                     </tr>
                 </table>
                 
@@ -397,13 +398,22 @@
 
         
         // 반려동물 동반 하나만 체크
-        function petCheck(element) {
-            var checkboxes = document.getElementsByName("pet");
-            checkboxes.forEach((e) => {
-                e.checked = false;
-            })
-            element.checked = true;
-        }; 
+        // function petCheck(element) {
+        //     var checkboxes = document.getElementsByName("pet");
+        //     checkboxes.forEach((e) => {
+        //         e.checked = false;
+        //     })
+        //     element.checked = true;
+        // }; 
+
+
+
+        $(".pet").change(function() {
+            $(".pet").not(this).prop('checked', false)
+        });
+        
+        
+        
 	
 	
 	
@@ -418,6 +428,10 @@
             });
         });
 	
+
+	
+	
+        
 	
 
         // 세부페이지 이동
