@@ -156,8 +156,6 @@ public class MarketListController extends HttpServlet {
 			
 		//-----------------------------------페이징 처리 끝----------------------------------------
 		
-//		String postNo = request.getParameter("postNo");
-//		Attachment at = new Attachment();
 		String sort = request.getParameter("sort");	
 		request.setAttribute("sort", sort);
 		
@@ -171,11 +169,11 @@ public class MarketListController extends HttpServlet {
 			
 		} else {
 			ArrayList<Market> list = new MarketService().marketList(pi, field, query);
-//			int result = new MarketService().marketListAtt(postNo, at);
-//			request.setAttribute("at", at);
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
 		}
+		
+		
 		
 		request.setAttribute("pi", pi);
 		

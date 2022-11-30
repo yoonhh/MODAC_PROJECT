@@ -90,10 +90,10 @@
 <body>
 
 	<%@ include file="../common/menubar.jsp" %>
-	<br>
+	<br><br>
 	<div id="enroll">
 		<h3><b>게시글 작성</b></h3>
-		<br>
+		<br><br>
 		
 		<form id="enroll-form" action="<%=contextPath%>/insert.mk" method="post" enctype="multipart/form-data">
 		 
@@ -179,13 +179,7 @@
 					}
 				}
 				
-				//기본 썸네일 추가-실패				
-// 				$(function(){
-// 					let file = $("#file1").prop("files")[0];
-// 					if(file == null){
-// 						$("#titleImg").attr("src", "resources/modacLogo/logo.png");
-// 					}
-// 				});
+				
 			</script>
 	
 			<input class="btn btn-secondary" id="backBtn" onclick="history.back()" value="이전으로"> 

@@ -261,6 +261,8 @@
         }
         #container #btn-modal{
             float: right;
+            margin-top: 2%;
+            margin-right: 2%;
         }
 
         /*모달 제목 글씨*/
@@ -311,8 +313,8 @@
                 	<a href="<%=contextPath%>/updateDate.mk?mno=<%=m.getPostNo()%>" class="btn btn-secondary btn-sm" id="updateDate">끌어올리기</a>
                 	<a href="<%=contextPath%>/changeSale.mk?mno=<%=m.getPostNo()%>" class="btn btn-secondary btn-sm" id="end">판매완료</a>
                 <% } else {%>
-                	<button id="endDateBtn">끌어올리기</button>
-                	<button id="endSaleBtn">판매완료</button>
+                	<button id="endDateBtn" onclick="alert('판매완료 게시글은 끌어올리기 할 수 없습니다.')">끌어올리기</button>
+                	<button id="endSaleBtn" onclick="alert('이미 판매완료한 게시글입니다.')">판매완료</button>
                 <% } %>
             	</div>
 			<% }
@@ -417,12 +419,12 @@
 <%-- 				<img src="<%=contextPath %>/<%=list.get(0).getPath()+list.get(0).getNewName() %>" width="190" height="150"> --%>
 				
 				<%for(int i = 0; i< list.size(); i++) { %>
-					<img src="<%=contextPath %>/<%=list.get(i).getPath()+list.get(i).getNewName()%>" width="190" height="150" onError="this.src='<%=contextPath %>/resources/modacLogo/logo.png';">
+					<img src="<%=contextPath %>/<%=list.get(i).getPath()+list.get(i).getNewName()%>" width="190" height="150" >
 				<% } %>
 			</div>
             <br>
             
-            <div class="content"><%=m.getPostContent()%></div>
+            <div class="content"><pre><%=m.getPostContent()%></pre></div>
             <br><br><br>
             
             <!--댓글기능 -->

@@ -122,10 +122,10 @@
 <body>
 
 	<%@ include file="../common/menubar.jsp" %>
-	
+	<br><br>
 	<div id="enroll">
 		<h3><b>게시글 수정</b></h3>
-		<br>
+		<br><br>
 
 		<form id="enroll-form" action="<%=contextPath%>/update.mk" method="post" enctype="multipart/form-data">
 			<!-- 게시글 번호를 hidden으로 넘겨줌 -->
@@ -138,7 +138,7 @@
 				<!-- 사진 미리보기 -->
 				<div class="imgAtt" style="text-align: left;">
 					<% if(!list.isEmpty()){
-					   	  int i = 0; 
+					   	  int i = 1; 
 					   	  
 						  for(Attachment at : list) {
 							 int index = at.getFileLevel();
@@ -151,7 +151,7 @@
 					   } %>		
 					
 					<table>
-<%-- 						<% for(int i =0 ; i < list.size(); i++) { %> --%>
+<%-- 						<% for(int i =0 ; i < 4; i++) { %> --%>
 <%-- 						<% if(!list.get(i).getOriginName().equals("logo.png")){ %> --%>
 <!-- 	                   	<th> -->
 <%-- 							<input type="button" class="btn-close" id="deleteBtn<%=i %>" aria-label="Close"> --%>
@@ -171,15 +171,15 @@
 							<input type="button" class="btn-close" id="deleteBtn3" aria-label="Close">
 	                    </th>
 	                    <tr>
-<%-- 	                    <% for(int i = 0 ; i <list.size(); i++) { %> --%>
+<%-- 	                    <% for(int i = 0 ; i <4; i++) { %> --%>
 <!-- 	                       <td> -->
 <%-- 	                    	<% if(!list.get(i).getPath().isEmpty()) { %> --%>
 <%-- 	                      		<img id="contentImg<%=i %>" src="<%=filePath[i+1] %>" width="180" height="130" value="<%=i+1 %>" >                        --%>
 <%-- 	                       <% } %>  --%>
 <!-- 	                       </td> -->
-<%-- 	                     <% } %> --%>
+<%-- 	                    <% } %> --%>
 	                       <td>
-	                      		<img id="contentImg0" src="<%=filePath[1] %>" width="180" height="130" value="1">                        
+	                      		<img id="contentImg0" <%if(!filePath[1].equals("")){ %>src="<%=filePath[1] %>" <%} %> width="180" height="130" value="1">                        
 	                       </td>
 	                       <td>
 								<img id="contentImg1" <%if(!filePath[2].equals("")){ %>src="<%=filePath[2] %>" <%} %> width="180" height="130" value="2">
@@ -215,8 +215,8 @@
 				$(function(){
                for(let i = 0; i < 4; i++) {
                   $("#deleteBtn"+i).click(function(){
-                     let   newName = $("[name=newPhotoName"+i+"]").val();
-                     let photoNo = $("[name=originPhotoNo"+i+"]").val();
+                     let newName = $("[name=newPhotoName"+(i+1)+"]").val();
+                     let photoNo = $("[name=originPhotoNo"+(i+1)+"]").val();
                      $.ajax({
                            url : "<%= request.getContextPath() %>/delete.at",
                            data : {newName,
@@ -226,7 +226,6 @@
                               if(result == "NNNNY"){
                                  alert("삭제에 성공했습니다");
                                  //기본로고 재등록
-                                 
                                  $("#contentImg"+i).attr("src","resources/modacLogo/logo.png")
                               }else{
                                  alert("삭제에 실패했습니다.");
@@ -248,7 +247,7 @@
 // 				               //삭제성공시
 // 				               if(result == "NNNNY"){
 // 				                  alert("삭제에 성공했습니다");
-// 				                  $("#contentImg").attr("src","resources/modacLogo/logo.png");
+// 				                  $("#contentImg0").attr("src","resources/modacLogo/logo.png");
 // 				                  //location.reload();
 // 				               }else{
 // 				                  alert("삭제에 실패했습니다.");

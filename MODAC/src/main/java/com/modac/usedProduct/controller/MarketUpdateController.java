@@ -62,9 +62,10 @@ public class MarketUpdateController extends HttpServlet {
 			
 			
 			ArrayList<Attachment> list = new ArrayList<>();
+			System.out.println(list);
 			
-			for(int i = 0; i < list.size(); i++) {
-				String key = "file" + (i+1);
+			for(int i = 1; i <= 4; i++) {
+				String key = "file" + i;
 			
 				if(multiRequest.getOriginalFileName(key) != null) {
 					//새롭게 전달된 첨부파일이 있는 경우에만 at변수에 필요한 값을 추가
@@ -74,7 +75,7 @@ public class MarketUpdateController extends HttpServlet {
 					at.setOriginName(multiRequest.getOriginalFileName(key));
 					at.setNewName(multiRequest.getFilesystemName(key));
 					at.setPath("resources/market_upfiles/");
-					at.setFileLevel(i+1);
+					at.setFileLevel(i);
 						
 					//첨부파일이 있을경우 원본파일의 파일번호, 수정명을 hidden으로 넘겨 받았음
 					if(multiRequest.getParameter("originPhotoNo"+i) != null) {

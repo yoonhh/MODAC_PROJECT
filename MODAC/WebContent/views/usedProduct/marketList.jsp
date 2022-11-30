@@ -214,7 +214,6 @@
                          		aria-label="Username" aria-describedby="basic-addon1" value="${param.q}"
                          		style="width: 52%;">
                          	<input type="submit" class="input-group-text" id="basic-addon1" value="검색">
-                           
                         </div>
                        </form><br>
                		</nav>
@@ -262,12 +261,7 @@
 		               <tbody>
                             <tr>
 		                        <td class="thumbnail" colspan="2">
-			                        <img src="<%=contextPath %>/<%=m.getTitleImg()%>" width="200px" height="200px">
-			                        <!-- 폴더에 titleImg 사진이 없을 경우 로고로 띄우기 -->
-<%-- 			                        <% File file = new File("/resources/market_upfiles/"+at.getNewName()); %> --%>
-<%-- 			                        <%if(!file.exists()) {%> --%>
-<!-- 			                        	<img alt="" src="/resources/modacLogo/logo.png"> -->
-<%-- 			                        <% } %> --%>
+			                        <img src="<%=contextPath %>/<%=m.getTitleImg()%>" onerror="this.src = '<%= contextPath %>/resources/modacLogo/logo.png'"  width="200px" height="200px">			                        
 		                        </td>
 		                    </tr>
 		                    <tr height="16px">

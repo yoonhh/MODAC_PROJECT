@@ -46,7 +46,6 @@ public class MarketDeleteAttachmentController extends HttpServlet {
 		
 		//미리보기 사진 파일경로
 		File file = new File(savePath+newName);
-		System.out.println(file);
 		
 		if(file.exists()) {
 			//사진이 존재하면 사진 삭제
