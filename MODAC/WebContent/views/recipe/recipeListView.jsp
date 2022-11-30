@@ -182,7 +182,7 @@
 					<div class="card" style="width: 30%; margin:5px; display:inline-block!important;">
 						<input type="hidden" name="rno" id="rno" value="<%=r.getPostNo()%>"> 
 						<div class="image-box" style="width: 100%;">
-						<img src="<%=contextPath%>/<%=r.getTitleImg()%>" class="image-thumbnail" width="200px" height="150px">
+						<img src="<%=contextPath%>/<%=r.getTitleImg()%>" onerror="this.src = '<%= contextPath %>/resources/modacLogo/logo.png'" class="image-thumbnail" width="200px" height="150px">
 						</div>
 						
 						<div class="card-body">

@@ -773,7 +773,6 @@ public class MemberDao {
 			int startRow = (pi.getCurrentPage()-1)* pi.getBoardLimit() +1;
 			int endRow = startRow + pi.getBoardLimit()-1;
 			
-			
 			psmt.setString(1, memberId);
 			psmt.setInt(2, startRow);
 			psmt.setInt(3, endRow);

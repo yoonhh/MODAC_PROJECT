@@ -125,9 +125,7 @@ public class CampReviewService {
 		Connection conn = getConnection();
 		
 		int result1 = new CampReviewDao().updateCampReview(cr, conn);
-		
 		int result2 = 1;
-		
 		int result3 = 1;
 		
 		if(cr.getTagList() != null) {
