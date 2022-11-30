@@ -33,13 +33,6 @@ public class emailCheck extends HttpServlet {
 		
 		int result = new MemberService().emailCheck(checkemail);
 		
-		if(result == 1){
-			
-			System.out.println("이미 존재하는 아이디입니다.");
-		} else {
-			
-			System.out.println("사용 가능한 아이디입니다.");
-		}
 		response.getWriter().print(result);
 			
 

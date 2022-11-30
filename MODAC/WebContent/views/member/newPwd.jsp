@@ -151,7 +151,7 @@
                         <input type="hidden" value="${memberId }" name="memberId"/>
                         <input type="hidden" value="${memberName }" name="memberName"/>
                         <input type="hidden" value="${email }" name="email"/>
-                        ${memberId },${memberName },${email }<br>
+                        <%-- ${memberId },${memberName },${email }<br> --%>
                     </div>
                     
                     <div id="newPwd-content">

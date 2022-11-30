@@ -161,7 +161,6 @@
 		)
 		WHERE ROWNUM <=5
 		          ]]>
-
 	</entry>
 	<entry key="selectCamStagram">
 		SELECT (SELECT PATH || NEW_NAME

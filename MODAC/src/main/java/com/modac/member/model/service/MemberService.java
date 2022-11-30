@@ -105,11 +105,9 @@ public class MemberService {
 		int result = 0;
 		
 		result = new MemberDao().fineUpdatePwd(memberId, memberName, email, updatePwd,conn);
-		System.out.println("result : "+result);
 		if(result > 0){
 			JDBCTemplate.commit(conn);
 			updateMem = new MemberDao().selectMember(memberId,conn);
-			System.out.println("updateMem Service : " + updateMem);
 		}else {
 			JDBCTemplate.rollback(conn);
 		}
@@ -123,9 +121,9 @@ public class MemberService {
 	 */
 	public int emailCheck(String checkemail) {
 	    Connection conn = JDBCTemplate.getConnection();
-	    System.out.println(checkemail);
+	    
 	    int result = new MemberDao().emailCheck(conn, checkemail);
-	    System.out.println(result);
+	    
 	    JDBCTemplate.close();
 	    return result;
 	}

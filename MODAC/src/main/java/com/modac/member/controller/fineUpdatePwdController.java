@@ -38,11 +38,9 @@ public class fineUpdatePwdController extends HttpServlet {
 		String updatePwd = request.getParameter("updatePwd");
 		
 		Member updateMem = new MemberService().fineupdatePwd(memberId, memberName, email, updatePwd);
-		System.out.println("updateMem : "+updateMem);
 		
-//		Member fineupdatePwd = new MemberService().fineupdatePwd(memberId,memberName,email,updatePwd);
 		HttpSession session = request.getSession();
-		System.out.println(session);
+		
 		if(updateMem==null) {
 			session.setAttribute("alertMsg", "비밀번호변경에 실패했습니다.");
 		}else {

@@ -41,23 +41,16 @@ public class findPwdController extends HttpServlet {
 		String email = request.getParameter("email");
 		
 		Member findPwd = ms.findPwd(memberId, memberName, email);
-		System.out.println("findPwd : "+findPwd); 
 		
 		if(findPwd == null) {
-			
 			request.setAttribute("errorMsg", "올바르지 않은 정보입니다.");
-			
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-
-		
 		}else {
 			RequestDispatcher rd = request.getRequestDispatcher("views/member/newPwd.jsp");
 			
 			request.setAttribute("memberId", memberId);
 			request.setAttribute("memberName", memberName);
 			request.setAttribute("email", email);
-			
-//			request.setAttribute("findPwd", findPwd);
 			
 			rd.forward(request, response);
 		}

@@ -1,11 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%
-/*     String contextPath = request.getContextPath();
-    
-    String alertMsg = (String) session.getAttribute("alertMsg");  */
-    
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -90,11 +84,6 @@
     </style>
 </head>
 <body>
-
-    <!--             width: 110px;
-            height: 40px;
-            background-color: #F0A500;
-            color: white; -->
 <%@ include file="../common/menubar.jsp" %>
 	<br> <br>
 	
@@ -108,7 +97,6 @@
             <input id="id" type="text" placeholder="아이디입력" name="memberId" required >
 			
 			<button type="button" class="btn btn-outline-warning" id="checkId" onclick="return idCheck();">아이디 확인</button>
-            <!-- <button type="button" id="checkId" onclick="idCheck();">아이디 확인</button> -->
 			<div id="reCheckId"></div>
             <p>영문자로 시작하는 5~15자 이내의 영문,숫자로 구성 가능</p>
         </div>
@@ -125,7 +113,6 @@
             <div id="checkPwd"></div>
         </div>
 			
-		
         <div>
             <span>이름</span>
             <input id="name"type="text" placeholder="이름" name="memberName" required >
@@ -134,17 +121,15 @@
             <span>이메일</span>
             <input id="email" type="email" placeholder="이메일" name="email" required >
             <div id="checkemail"></div>
-            
-                
         </div>
         <div>
             <span>닉네임</span>
             <input id="nickname" type="text" placeholder="닉네임" name="memberNic" required>
-            
         </div>
             <input onclick="return validate();" type="submit" id="inserCheck" value="회원가입" name="insertCheck" disabled>
 		</form>
     </div>
+    
     
     <!-- 아이디 체크 -->
     <script>
@@ -183,61 +168,6 @@
     }
     </script>
     
-    <!-- 비밀번호 체크 -->
-    <script>
-    $(function () {
-    	$("#password").keyup(function(){
-        	let pwd1=$("#password").val();
-        	let pwdCheck2 = /^(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{5,15}$/gi;
-        	
-	            if(!pwdCheck2.test(pwd1)){
-	                $("#reCheckPwd").html('사용할 수 없는 비밀번호입니다.').css('color','red')
-	            }else{
-	                $("#reCheckPwd").html('사용할 수 있는 비밀번호입니다.').css('color','green');
-	            }
-    	})
-	});    
-    </script>
-    
-    <script>    <!-- $(function(){
-        $("#alert-success").hide();
-        $("#alert-danger").hide();
-        $("input").keyup(function(){
-            var pwd1=$("#password").val();
-            var pwd2=$("#checkpassword").val();	
-
-            if(pwd1 != "" || pwd2 != ""){
-          		if(pwd1 == pwd2){
-                    $("#alert-success").show();
-                    $("#alert-danger").hide();
-                    $("#submit").removeAttr("disabled");
-                }else{
-                    $("#alert-success").hide();
-                    $("#alert-danger").show();
-                    $("#submit").attr("disabled", "disabled");
-                }    
-            }
-        });
-    }); --></script>
-    
-    <script>
-    <!-- 비밀번호 같은지 체크 -->
-    $(function () {
-        $("#checkpassword").keyup(function(){
-            let pwd1=$("#password").val();
-            let pwd2=$("#checkpassword").val();	
-                if(pwd1 != "" || pwd2 !=""){
-                    if(pwd1 == pwd2){
-                        $("#checkPwd").html('비밀번호가 일치합니다.').css('color','green')
-                    }else{
-                        $("#checkPwd").html('비밀번호가 일치하지 않습니다.').css('color','red')
-                    }
-                }
-        });
-    });
-    </script>
-    
-    
     <!-- 이메일체크 -->
     <script>
         $('#email').focusout(function(){
@@ -261,35 +191,64 @@
                 }
                 
             });
-        });   
-        function validate() {
-        //변수에 담아주기
-/*          let id = document.getElementById("id");
-        let idCheck2 = /^[a-zA-Z0-9]{5,15}$/gi;
-        if(!idCheck2.test(id.value)){
-            alert("아이디는 영문자로 시작하는 5~15자 이내의 영문, 숫자로 구성 가능합니다.");
-            return false;
-        } */
-        
-        
-/* 	     let pwd1=$("#password").val();
-        let pwdCheck2 = /^[a-z\d!@#$%^&*]{5,15}$/gi;
-        if (!pwdCheck2.test(pwd1)) {
-          alert("비밀번호는 영문자+숫자+특수문자 조합으로 5~15자리 사용해야 합니다.");
-          return false;
-        }; */
-		
-        let regexp = /^[관리자]|[운영자]$/gi;
-        let nicName = $("#nickname").val()
-        if(regexp.test(nicName)){
-        	alert("'관리자' 또는 '운영자' 라는 닉네임은 사용할수없습니다.");
-        	return false;
-        }
-        
-	}  
-      
-        
-        
+        });
+	  
+    </script>
+    <script>
+    /* 닉네임금지 */
+    function validate() {
+    let regexp = /^[관리자]|[운영자][admin]$/gi;
+    let nicName = $("#nickname").val()
+	    if(regexp.test(nicName)){
+	    	alert("'관리자' 또는 '운영자' 라는 닉네임은 사용할수없습니다.");
+	    	return false;
+	    	}
+   
+    
+
+    
+    }
+    </script>
+    
+    <script>
+    /* <!-- 비밀번호 체크 --> */
+    $(function () {
+    	$("#password").keyup(function(){
+        	let pwd1=$("#password").val();
+        	let pwdCheck2 = /^(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{5,15}$/gi;
+        	
+	            if(!pwdCheck2.test(pwd1)){
+	                $("#reCheckPwd").html('사용할 수 없는 비밀번호입니다.').css('color','red');
+	                $("#password").focus();
+	                
+	            }else{
+	                $("#reCheckPwd").html('사용할 수 있는 비밀번호입니다.').css('color','green');
+	            }
+    	})
+	}); 
+    </script>
+    
+    <script>
+    /* <!-- 비밀번호 같은지 체크 --> */
+    $(function () {
+        $("#checkpassword").keyup(function(){
+            let pwd1=$("#password").val();
+            let pwd2=$("#checkpassword").val();	
+                if(pwd1 != "" || pwd2 !=""){
+                    if(pwd1 == pwd2){
+                        $("#checkPwd").html('비밀번호가 일치합니다.').css('color','green')
+                        
+                    }else{
+                        $("#checkPwd").html('비밀번호가 일치하지 않습니다.').css('color','red')
+                        $("#checkpassword").focus();
+                    }
+                }
+        });
+    });
+    </script>
+    
+    <script>
+    	
     </script>
 </body>
 </html>

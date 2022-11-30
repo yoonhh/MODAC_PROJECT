@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.modac.member.model.vo.Member"%>
     <%
-    	String contextPath =request.getContextPath();
+    	/* String contextPath =request.getContextPath(); */
     	Member fineId = (Member) session.getAttribute("fineId");
     	
     %>
