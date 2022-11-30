@@ -63,10 +63,12 @@ public class campReviewUpdateController extends HttpServlet {
 		
 			String[] tagNo = multiRequest.getParameterValues("tag");
 			ArrayList<Integer> tagList = new ArrayList<>();
-			for(int i=0; i<tagNo.length; i++){
-			    tagList.add(Integer.parseInt(tagNo[i]));
+			if(tagNo != null) {
+				for(int i=0; i<tagNo.length; i++){
+				    tagList.add(Integer.parseInt(tagNo[i]));
+				}
+				cr.setTagList(tagList);
 			}
-			cr.setTagList(tagList);
 
 			Attachment at = null;
 			

@@ -54,19 +54,20 @@ public class campReviewInsertController extends HttpServlet {
 			String postTitle = multiRequest.getParameter("title");
 			String postContent = multiRequest.getParameter("content");
 			
-			String[] tagNo = multiRequest.getParameterValues("tag"); 
-			
 			CampReview cr = new CampReview();
 			cr.setPostTitle(postTitle);
 			cr.setPostContent(postContent);
 			cr.setMemberNo(memberNo);
-			
+
+			String[] tagNo = multiRequest.getParameterValues("tag"); 
 
 			ArrayList<Integer> tagList = new ArrayList<>();
-			for(int i=0; i<tagNo.length; i++){
-			    tagList.add(Integer.parseInt(tagNo[i]));
-			}
-			cr.setTagList(tagList);
+				if(tagNo != null) {
+					for(int i=0; i<tagNo.length; i++){
+					    tagList.add(Integer.parseInt(tagNo[i]));
+					}
+					cr.setTagList(tagList);
+				}
 			
 			Attachment at = null;
 			
