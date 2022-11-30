@@ -122,7 +122,7 @@
   <div style="text-align: center; margin: auto;">
 		<div id="demo" class="carousel slide" data-ride="carousel" >
 
-			<div class="carousel-inner" style="width: 1500px; height: 400px; text-align: center;">
+			<div class="carousel-inner" style="width: 100%; height: 400px; text-align: center;">
 			<!-- 슬라이드 쇼 -->
 			<div class="carousel-item active">
 				<!--가로-->

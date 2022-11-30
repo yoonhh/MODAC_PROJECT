@@ -61,12 +61,7 @@ public class camStagramInsertController extends HttpServlet {
 				at.setOriginName(multiRequest.getOriginalFileName("upfile"));// 원본명
 				at.setNewName(multiRequest.getFilesystemName("upfile"));//수정명(실제 서버에 업로드되어있는 파일명)
 				at.setPath("resources/camStagram_upfiles/");
-			}else {
-				at = new Attachment();
-	            at.setOriginName("logo.png");
-	            at.setNewName("logo.png");
-	            at.setPath("/resources/modacLogo/");
-	         }
+			}
 			
 			
 			int result = new CamStagramService().insertCamStagram(cs, at);
