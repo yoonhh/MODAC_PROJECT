@@ -81,6 +81,10 @@
 	margin-right: 10%;
 }
 
+/* #sideImg{ */
+/* 	text-align: center; */
+/* 	margin-left : 1000px; */
+/* } */
 
 </style>
 
@@ -115,25 +119,23 @@
     crossorigin="anonymous"></script>
   <script>
     $('.carousel').carousel({
-      interval: 2000 //기본 5초
+      interval: 5000 //기본 5초
     })
   </script>
-<div class="container"></div>
-  <div style="text-align: center; margin: auto;">
+<div class="container" ></div>
+  <div id="sideImg">
 		<div id="demo" class="carousel slide" data-ride="carousel" >
 
-			<div class="carousel-inner" style="width: 1500px; height: 400px; text-align: center;">
+			<div class="carousel-inner" style="width: auto; height: auto; text-align: center;">
 			<!-- 슬라이드 쇼 -->
 			<div class="carousel-item active">
 				<!--가로-->
-				<img class="d-block w-100" 
-				src="<%= request.getContextPath() %>/resources/메인화면1.png"
-				alt="First slide">
+				<img class="d-block" 
+				src="<%= request.getContextPath() %>/resources/메인화면1.png" alt="First slide">
 			</div>
 			<div class="carousel-item">
-				<img class="d-block w-100"
-				src="<%= request.getContextPath() %>/resources/메인화면2.png"
-				alt="Second slide">
+				<img class="d-block"
+				src="<%= request.getContextPath() %>/resources/메인화면2.png" alt="Second slide">
 			</div>
 			
 			<!-- / 슬라이드 쇼 끝 -->
@@ -163,9 +165,9 @@
 	<br> <br>
 
 	<div id="buttons">
-		<button id="btn-campInfo" onclick="location.href=''">캠핑장 검색으로</button>
+		<button id="btn-campInfo" onclick="location.href='<%=contextPath %>/list.ca'">캠핑장 검색으로</button>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<button id="btn-notice" onclick="location.href=''">모닥불 이야기로</button>
+		<button id="btn-notice" onclick="location.href='<%=contextPath%>/list.cr'">모닥불 이야기로</button>
 	</div>
 
 
