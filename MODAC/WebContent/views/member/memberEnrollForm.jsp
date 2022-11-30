@@ -96,6 +96,8 @@
             background-color: #F0A500;
             color: white; -->
 <%@ include file="../common/menubar.jsp" %>
+	<br> <br>
+	
     <div id="wrapper">
         <h1 class="title">회원가입</h1>
         <hr>
