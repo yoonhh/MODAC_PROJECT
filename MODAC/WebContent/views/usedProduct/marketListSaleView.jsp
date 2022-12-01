@@ -247,7 +247,7 @@
 		               <tbody>
                             <tr>
 		                        <td class="thumbnail" colspan="2">
-			                        <img src="<%=contextPath %>/<%=m.getTitleImg()%>" width="200px" height="200px">
+			                        <img src="<%=contextPath %>/<%=m.getTitleImg()%>" width="200px" height="200px" onerror="this.src = '<%= contextPath %>/resources/modacLogo/logo.png'">
 		                        </td>
 		                    </tr>
 		                    <tr height="16px">
@@ -339,7 +339,7 @@
 			<% } %>
 			
 			<% if(currentPage != maxPage) { %>
-				<button class="moveBtn" onclick="doPageClick(<%=currentPage +1 %>)">&gt;다음</button>
+				<button class="moveBtn" onclick="doPageClick(<%=currentPage +1 %>)">다음&gt;</button>
 			<% } %>
 		</div>
     

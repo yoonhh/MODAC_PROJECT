@@ -166,8 +166,8 @@ public class MarketOnlySaleViewController extends HttpServlet {
 	
 	if (sort != null && sort.equals("sortOfDate")) {
 		//판매상태 Y값 제외하고 최신순으로 게시글 조회 리스트
-		ArrayList<Market> list2 = new MarketService().sortOfDateOnlySale(pi, field, query);
-		request.setAttribute("list", list2);
+		ArrayList<Market> list = new MarketService().onlySaleView(pi, field, query);
+		request.setAttribute("list", list);
 		
 	} else if(sort != null && sort.equals("sortOfCount")){
 		//판매상태 Y값 제외하고 조회순으로 게시글 조회 리스트

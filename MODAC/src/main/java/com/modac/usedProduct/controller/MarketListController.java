@@ -160,8 +160,8 @@ public class MarketListController extends HttpServlet {
 		request.setAttribute("sort", sort);
 		
 		if (sort != null && sort.equals("sortOfDate")) {
-			ArrayList<Market> list2 = new MarketService().sortOfDate(pi, field, query);
-			request.setAttribute("list", list2);
+			ArrayList<Market> list = new MarketService().marketList(pi, field, query);
+			request.setAttribute("list", list);
 			
 		} else if(sort != null && sort.equals("sortOfCount")){
 			ArrayList<Market> list3 = new MarketService().sortOfCount(pi, field, query);
@@ -170,10 +170,7 @@ public class MarketListController extends HttpServlet {
 		} else {
 			ArrayList<Market> list = new MarketService().marketList(pi, field, query);
 			request.setAttribute("list", list);
-			request.setAttribute("pi", pi);
 		}
-		
-		
 		
 		request.setAttribute("pi", pi);
 		

@@ -151,30 +151,31 @@
 					   } %>		
 					
 					<table>
-<%-- 						<% for(int i =0 ; i < 4; i++) { %> --%>
-<%-- 						<% if(!list.get(i).getOriginName().equals("logo.png")){ %> --%>
-<!-- 	                   	<th> -->
-<%-- 							<input type="button" class="btn-close" id="deleteBtn<%=i %>" aria-label="Close"> --%>
-<!-- 	                    </th> -->
-<%-- 	                    <%} %> --%>
+<%-- 						<% for(int i =0 ; i < list.size(); i++) { %> --%>
+<%-- 							<% if(!list.get(i).getOriginName().equals("logo.png")){ %> --%>
+<!-- 		                   	<th> -->
+<%-- 								<input type="button" class="btn-close" id="deleteBtn<%=i %>" aria-label="Close"> --%>
+<!-- 		                    </th> -->
+<%-- 		                    <%} %> --%>
 <%-- 						<%} %> --%>
 	                   	<th>
+	                   		<!-- contentImg0번째 값이 존재할 경우만 표시 -->
 							<input type="button" class="btn-close" id="deleteBtn0" aria-label="Close">
 	                    </th>
 	                    <th>
 							<input type="button" class="btn-close" id="deleteBtn1" aria-label="Close">
 	                    </th>
 	                    <th>
-							<input type="button" class="btn-close" id="deleteBtn2" aria-label="Close">
+							<input type="button" class="btn-close" id="deleteBtn2" aria-label="Close">	
 	                    </th>
 	                    <th>
 							<input type="button" class="btn-close" id="deleteBtn3" aria-label="Close">
 	                    </th>
 	                    <tr>
-<%-- 	                    <% for(int i = 0 ; i <4; i++) { %> --%>
+<%-- 	                    <% for(int i = 0 ; i < list.size(); i++) { %> --%>
 <!-- 	                       <td> -->
 <%-- 	                    	<% if(!list.get(i).getPath().isEmpty()) { %> --%>
-<%-- 	                      		<img id="contentImg<%=i %>" src="<%=filePath[i+1] %>" width="180" height="130" value="<%=i+1 %>" >                        --%>
+<%-- 	                      		<img id="contentImg<%=i%>" src="<%=filePath[i+1] %>" width="180" height="130" value="<%=i+1 %>" >                        --%>
 <%-- 	                       <% } %>  --%>
 <!-- 	                       </td> -->
 <%-- 	                    <% } %> --%>
@@ -211,8 +212,8 @@
 			<br>
 			
 			<script>
-				//삭제 버튼 반복문 ver.
-				$(function(){
+			//삭제 버튼 반복문 ver.
+			$(function(){
                for(let i = 0; i < 4; i++) {
                   $("#deleteBtn"+i).click(function(){
                      let newName = $("[name=newPhotoName"+(i+1)+"]").val();
@@ -229,11 +230,11 @@
                                  $("#contentImg"+i).attr("src","resources/modacLogo/logo.png")
                               }else{
                                  alert("삭제에 실패했습니다.");
-                           }
+                           	  }
                            }
                         })
-                     })   
-               } 
+                    })   
+               	} 
             })
 				
 				

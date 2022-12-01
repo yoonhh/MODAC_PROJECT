@@ -124,9 +124,11 @@
     .content{
         /*border: 1px solid mistyrose;*/
         box-sizing: border-box;
-        width: 780px;
+        width: 750px;
 		height: 250px;
-        margin:auto;
+        margin: auto;
+/*         font-weight: bold; */
+        font-size: large;
     }
     a{
     	color: gray;
