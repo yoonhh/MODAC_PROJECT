@@ -128,10 +128,12 @@
                      <% if(cr.getTitleImg() != null ) { %>
                      		<input type="hidden" name="titleImg" value="<%= cr.getTitleImg() %>">
 	               		 <img src="<%=contextPath%>/<%=cr.getTitleImg()%>" value="1" width="600px"style="display:inline;" height="100%" id="titleImg">
-	               		 <button type="button" id="delete" class="btn-close" aria-label="Close" style="vertical-align: bottom; display:inline;" onclick="deleteAttachment();"></button>
+	               		 <button type="button" id="delete" class="btn-close" aria-label="Close" style="vertical-align: bottom; 
+	               		         display:inline;" onclick="deleteAttachment();"></button>
 	                 <% } else { %>
 	                	 <img value="1" width="600px"style="display:inline;" height="100%" id="titleImg">
-	               		 <button type="button" id="delete" class="btn-close" aria-label="Close" style="vertical-align: bottom; display:none;" onclick="deleteAttachment();"></button>
+	               		 <button type="button" id="delete" class="btn-close" aria-label="Close" style="vertical-align: bottom; 
+	               		         display:none;" onclick="deleteAttachment();"></button>
 	                 
 	                 <% } %>
 	                 </div>
@@ -198,7 +200,6 @@
 	              let reader = new FileReader();
 	              reader.readAsDataURL(inputFile.files[0]);
 	              
-	              // 파일 읽기가 완료되었을때 실행할 함수 정의
 	              reader.onload = function(e){
 	                  $("#titleImg").attr("src",e.target.result);
 	            	  $("#titleImg").css("display","inline");

@@ -38,19 +38,11 @@ public class camStagramLikeController extends HttpServlet {
 		Member member = (Member)request.getSession().getAttribute("loginMember");
 		String memberNo = member.getMemberNo();
 
-		System.out.println("con memberNo + postNo: " + memberNo + postNo);
-		
 		BoardLike bl = new BoardLike();
 		bl.setPostNo(postNo);
 		bl.setMemberNo(memberNo);
 		
 		int result = new CamStagramService().insertBoardLike(postNo, memberNo);
-		System.out.println(result);
-		
-		
-		System.out.println("con bl : " + bl);
-		
-		System.out.println("con result : " + result);
 		
 		request.setAttribute("bl", bl);
 		

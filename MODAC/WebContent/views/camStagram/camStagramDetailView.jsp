@@ -306,22 +306,21 @@
           </div>
           
           <script>
-          
-				 function like(){
-					 $.ajax({
-	                        url : "like.cs",
-	                        data : {postNo : "<%=cs.getPostNo() %>"},
-	                        success : function(result){
-	                           //좋아요 등
-	                           if(result == 1){
-	                              alert("좋아요를 등록했습니다.");
-	                           	  location.reload();
-	                           }else{
-	                              alert("좋아요 등록에 실패했습니다. ");
-	                           }
-	                        }
-	                     });
-				 }
+			 function like(){
+				 $.ajax({
+                        url : "like.cs",
+                        data : {postNo : "<%=cs.getPostNo() %>"},
+                        success : function(result){
+                           //좋아요 등
+                           if(result == 1){
+                              alert("좋아요를 등록했습니다.");
+                           	  location.reload();
+                           }else{
+                              alert("좋아요 등록에 실패했습니다. ");
+                           }
+                        }
+                     });
+			 }
 				 
             $(function(){
             $("#unlike").click(function(){
@@ -340,7 +339,6 @@
                      });
                   })
             })
-	      
       	 </script>
 
 
