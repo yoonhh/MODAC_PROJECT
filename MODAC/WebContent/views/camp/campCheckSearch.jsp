@@ -8,6 +8,8 @@
 	
     PageInfo pi = (PageInfo) request.getAttribute("pi");
 	
+  	String items="";
+  
 	if(item1 != null){
 	    for( int i =0 ; i<item1.length;i++){
 	    	if(item1[i].equals("개수대(취사장)")){
@@ -262,8 +264,8 @@
                     </tr>
                     <tr>
                         <td class="them">반려동물 동반</td>
-                        <td><input type="checkbox" class="pet" name="pet" id="pet-yes" value="가능" onclick="petCheck(this);" ${pet == '가능' ?"checked":""><label for="pet-yes"> 가능</label></td>
-                        <td><input type="checkbox" class="pet" name="pet" id="pet-no" value="불가능" onclick="petCheck(this);" ${pet == '불가능' ?"checked":""><label for="pet-no"> 불가능</label></td>
+                        <td><input type="checkbox" class="pet" name="pet" id="pet-yes" value="가능" onclick="petCheck(this);" ${pet == '가능' ?"checked":""}><label for="pet-yes"> 가능</label></td>
+                        <td><input type="checkbox" class="pet" name="pet" id="pet-no" value="불가능" onclick="petCheck(this);" ${pet == '불가능' ?"checked":""}><label for="pet-no"> 불가능</label></td>
                     </tr>
                 </table>
                 
