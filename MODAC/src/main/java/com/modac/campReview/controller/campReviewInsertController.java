@@ -80,7 +80,7 @@ public class campReviewInsertController extends HttpServlet {
 			}
 		int result = new CampReviewService().insertCampReview(cr, at);
 		
-		System.out.println();
+		System.out.println(result);
 
 		if(result > 0) {
 			request.getSession().setAttribute("alertMsg", "게시글 작성 성공!");
@@ -93,7 +93,7 @@ public class campReviewInsertController extends HttpServlet {
 			}
 			
 			request.setAttribute("errorMsg","게시글 작성 실패");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			request.getRequestDispatcher("views/common/errorPage3.jsp").forward(request, response);
 		}
 	}
 	

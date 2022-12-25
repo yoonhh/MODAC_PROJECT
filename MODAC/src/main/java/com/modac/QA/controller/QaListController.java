@@ -74,6 +74,8 @@ public class QaListController extends HttpServlet {
 		
 		request.setAttribute("list", list);
 		
+		System.out.println("list ; "+ list);
+		
 		ArrayList<Qa> qList = new QaService().selectQaList(pi, field, query);
 		
 		request.setAttribute("qList", qList);

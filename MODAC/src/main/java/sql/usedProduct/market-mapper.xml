@@ -19,27 +19,28 @@
 	
 	<!-- 게시글 목록페이지 -->
 	<entry key="marketList">
-		SELECT * 
-		FROM (
-			SELECT ROWNUM RNUM, A.*
-			FROM(
-				SELECT POST_TITLE,
-					   CREATE_DATE,
-					   READ_COUNT,
-					   SALE,
-					   MEMBER_NIC,
-					   POST_NO,
-					   PATH || NEW_NAME AS "TITLEIMG"
-				FROM USED_PRODUCT U
-				JOIN MEMBER M ON (U.MEMBER_NO = M.MEMBER_NO)
-				JOIN ATTACHMENT A USING (POST_NO)
-				WHERE U.STATUS = 'N' 
-					AND FILE_LEVEL = 1 
-					AND $ LIKE ?
-				ORDER BY CREATE_DATE DESC, POST_NO DESC
-				) A	
-			)
-		WHERE RNUM BETWEEN ? AND ? 
+      SELECT * 
+      FROM (
+         SELECT ROWNUM RNUM, A.*
+         FROM(
+            SELECT POST_TITLE,
+                  CREATE_DATE,
+                  READ_COUNT,
+                  SALE,
+                  MEMBER_NIC,
+                  POST_NO,
+                  PATH || NEW_NAME AS "TITLEIMG"
+            FROM USED_PRODUCT U
+            JOIN MEMBER M ON (U.MEMBER_NO = M.MEMBER_NO)
+            JOIN ATTACHMENT A USING (POST_NO)
+            WHERE U.STATUS = 'N' 
+               AND A.FILE_LEVEL = 1
+               AND A.BOARD_NO = 9 
+               AND $ LIKE ?
+            ORDER BY CREATE_DATE DESC, POST_NO DESC
+            ) A   
+         )
+      WHERE RNUM BETWEEN ? AND ? 
 	</entry>
 	
 	<!-- 게시글 목록 썸네일 파일 -->
@@ -61,7 +62,7 @@
 			   MEMBER_NIC
 		FROM USED_PRODUCT U
 		JOIN MEMBER M USING(MEMBER_NO)
-		WHERE POST_NO = ? 
+		WHERE BOARD_NO = '9' AND POST_NO = ? 
 		AND U.STATUS = 'N'
 	</entry>
 	
@@ -75,7 +76,7 @@
 			   FILE_LEVEL
 		FROM ATTACHMENT
 		JOIN BOARD USING(BOARD_NO)
-		WHERE POST_NO = ? AND STATUS='N'
+		WHERE POST_NO = ? AND BOARD_NO = 9 AND STATUS='N'
 	</entry>
 	
 	<!-- 마켓 게시글 작성 -->
@@ -210,7 +211,7 @@
 					FROM USED_PRODUCT U
 					JOIN MEMBER M ON (U.MEMBER_NO = M.MEMBER_NO)
 					JOIN ATTACHMENT USING (POST_NO)
-					WHERE U.STATUS = 'N' AND FILE_LEVEL = 1 AND $ LIKE ?
+					WHERE U.BOARD_NO = 9 AND U.STATUS = 'N' AND FILE_LEVEL = 1 AND $ LIKE ?
 					ORDER BY READ_COUNT DESC
 				) A	
 			)

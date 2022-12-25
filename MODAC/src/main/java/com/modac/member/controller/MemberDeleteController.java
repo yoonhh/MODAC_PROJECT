@@ -59,7 +59,7 @@ request.setCharacterEncoding("UTF-8");
 			
 			request.setAttribute("errorMsg", "회원 탈퇴에 실패했습니다");
 			
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);;
+			request.getRequestDispatcher("views/common/errorPage3.jsp").forward(request, response);;
 			
 		}
 		

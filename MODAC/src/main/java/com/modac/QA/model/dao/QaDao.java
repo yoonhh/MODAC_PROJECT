@@ -70,7 +70,7 @@ public class QaDao {
 			close(rset);
 			close(psmt);
 		}
-		
+		System.out.println("qList"+qList);
 		return qList;
 	}
 

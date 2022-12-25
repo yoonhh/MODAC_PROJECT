@@ -54,13 +54,14 @@ public class CampReviewService {
 	}
 	
 	public CampReview selectCampReview(int campReviewNo) {
-		
+
+		System.out.println("campReviewNo"+campReviewNo);
 		Connection conn = getConnection();
 		
 		CampReview cr= new CampReviewDao().selectCampReview(campReviewNo, conn);
 		
 		close();
-		
+		System.out.println("cr"+cr);
 		return cr;
 	}
 	

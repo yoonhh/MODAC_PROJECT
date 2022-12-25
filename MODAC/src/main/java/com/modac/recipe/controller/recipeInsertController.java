@@ -66,6 +66,8 @@ public class recipeInsertController extends HttpServlet {
 			
 			Attachment at = null;
 			
+			
+			
 			if(multiRequest.getOriginalFileName("upfile") != null) {
 				
 				at = new Attachment();
@@ -79,8 +81,13 @@ public class recipeInsertController extends HttpServlet {
 	            at.setPath("/resources/modacLogo/");
 	         }
 			
+			 System.out.println("at.getOriginName(): "+ at.getOriginName());
+			 System.out.println("at.getNewName(): "+ at.getNewName());
+			 System.out.println("at.getPath(): "+ at.getPath());
 			
 			int result = new RecipeService().insertRecipe(r, at);
+			
+		System.out.println("result : "+ result);
 			
 			if(result > 0) {// 성공=> list.bo?currentPage=1
 				request.getSession().setAttribute("alertMsg", "게시글 작성 성공!");
@@ -93,7 +100,7 @@ public class recipeInsertController extends HttpServlet {
 				}
 				
 				request.setAttribute("errorMsg","게시글 작성 실패");
-				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+				request.getRequestDispatcher("views/common/errorPage3.jsp").forward(request, response);
 			}
 		}
 	}

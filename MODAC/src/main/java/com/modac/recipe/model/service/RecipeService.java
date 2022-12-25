@@ -96,6 +96,8 @@ public class RecipeService {
 		}
 		close();
 		
+		System.out.println("result1 * result2 : "+ result1 + result2);
+		
 		return result1 * result2;
 	}
 	

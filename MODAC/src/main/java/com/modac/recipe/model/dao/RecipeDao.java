@@ -237,6 +237,10 @@ public class RecipeDao {
 		 
 		 PreparedStatement psmt = null;
 		 
+		 System.out.println("at.getOriginName(): "+ at.getOriginName());
+		 System.out.println("at.getNewName(): "+ at.getNewName());
+		 System.out.println("at.getPath(): "+ at.getPath());
+		 
 		 String sql = prop.getProperty("insertAttachment");
 		 
 		 try {
@@ -252,6 +256,8 @@ public class RecipeDao {
 		}finally {
 			close(psmt);
 		}
+		 System.out.println("result (dao - r) : "+ result);
+		 
 		 return result;
 	 }
 	

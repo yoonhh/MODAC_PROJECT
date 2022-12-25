@@ -46,6 +46,10 @@ public class campReviewDetailController extends HttpServlet {
 			request.setAttribute("rt", rt);
 			request.setAttribute("at", at);
 			
+			System.out.println("cr"+ cr);
+			System.out.println("rt"+ rt);
+			System.out.println("at"+ at);
+			
 			request.getRequestDispatcher("views/campReview/campReviewDetailView.jsp").forward(request, response);
 			
 		}else { // 실패, 에러페이지 

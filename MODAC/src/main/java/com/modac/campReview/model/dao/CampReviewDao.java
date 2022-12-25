@@ -157,6 +157,8 @@ public class CampReviewDao {
 			close(rset);
 			close(psmt);
 		}
+
+			System.out.println("cr"+cr);
 		return cr;
 		 
 	 }

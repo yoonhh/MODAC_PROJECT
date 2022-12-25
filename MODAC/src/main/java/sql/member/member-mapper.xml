@@ -93,7 +93,7 @@
 	<!-- 마이페이지에서 회원탈퇴 -->
 	<entry key = "deleteMember">
 		UPDATE MEMBER
-		SET STATUS = 'N'
+		SET STATUS = 'Y'
 			, MODI_DATE = SYSDATE
 			WHERE MEMBER_ID = ?
 			  AND MEMBER_PWD = ?
